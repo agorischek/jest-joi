@@ -1,7 +1,2 @@
-# ts outDir
-out - ts /
-    dist /
-
-    # editor config
-    .idea /
+dist
 node_modules

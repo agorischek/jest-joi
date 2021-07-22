@@ -6,30 +6,34 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc -p src/tsconfig.json -w",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "format": "prettier --write .",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "start": "ts-node src/index.ts"
   },
   "devDependencies": {
-    "@types/node": "^12.12.16",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.8.3",
     "@types/jest": "^25.2.1",
-    "jest": "^26.0.1",
-    "ts-jest": "^25.5.1",
+    "@types/node": "^12.12.16",
     "@typescript-eslint/eslint-plugin": "^2.32.0",
     "@typescript-eslint/parser": "^2.32.0",
-    "prettier": "^2.0.5",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
-    "eslint-plugin-import": "^2.20.2",
     "eslint-config-prettier": "^6.11.0",
-    "prettier-package-json": "^2.6.0"
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^25.0.0",
+    "prettier": "^2.0.5",
+    "prettier-package-json": "^2.6.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.5.1",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
   },
   "keywords": [],
   "author": "",
   "license": "",
   "dependencies": {
+    "jest-matcher-utils": "^27.0.6",
     "joi": "^17.4.1"
   }
 }
