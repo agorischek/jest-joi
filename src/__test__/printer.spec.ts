@@ -3,7 +3,7 @@ import { buildMessage } from "../printer";
 
 const schema = Joi.object({ a: Joi.string().required() });
 
-const input = { a: 'b' };
+const input = { a: false };
 const options = {}
 const { error } = schema.validate(input, options);
 const matcherHintOptions = {

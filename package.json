@@ -9,6 +9,7 @@
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write .",
     "test": "jest",
+    "test:coverage": "jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "ts-node src/index.ts"
   },
