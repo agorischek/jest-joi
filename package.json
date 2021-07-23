@@ -1,10 +1,13 @@
 {
   "name": "jest-joi",
   "version": "0.0.1",
-  "description": "",
+  "description": "Jest matcher for Joi schemas",
+  "homepage": "https://github.com/agorischek/jest-joi",
+  "repository": "https://agorischek@github.com/agorischek/jest-joi.git",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "badge": "badge-roll affix",
     "dev": "tsc -p src/tsconfig.json -w",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write .",
@@ -21,6 +24,7 @@
     "@types/stringify-object": "^3.3.1",
     "@typescript-eslint/eslint-plugin": "^2.32.0",
     "@typescript-eslint/parser": "^2.32.0",
+    "badge-roll": "0.0.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-config-prettier": "^6.11.0",
@@ -33,9 +37,9 @@
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
   },
-  "keywords": [],
-  "author": "",
-  "license": "",
+  "keywords": ["jest", "joi", "jest-joi", "joi-jest", "schema", "matchers"],
+  "author": "Alex Gorischek",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.1",
     "jest-matcher-utils": "^27.0.6",
