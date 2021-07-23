@@ -1,7 +1,7 @@
 // Use these tests to manually inspect error messages.
 // These tests are expected to fail!
 
-// import * as Joi from "joi";
+import * as Joi from "joi";
 
 // test("String schema mismatch", () => {
 //   const schema = Joi.string();
@@ -39,3 +39,9 @@
 //   const options = { allowUnknown: false };
 //   expect(input).toMatchSchema(schema, options);
 // });
+
+test("Bad schema to fail", () => {
+  const schema = false
+  const input = {b: true};
+  expect(input).toMatchSchema(schema);
+});
