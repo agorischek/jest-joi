@@ -1,6 +1,9 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
-import { MatcherHintOptions, matcherHint } from "jest-matcher-utils";
+import {
+  MatcherHintOptions,
+  matcherHint,
+} from "jest-matcher-utils";
 
 import stringifyObject = require("stringify-object");
 
@@ -22,10 +25,16 @@ const expectedColor = chalk.green;
 
 const expectedSchema = (schema: Joi.Schema): string =>
   expectedColor(printObject(schema.describe()));
+
 const validReceivedInput = (input: unknown): string =>
   receivedColor(printObject(input));
-const invalidReceivedInput = (error: Joi.ValidationError): string =>
-  error.annotate();
+
+const invalidReceivedInput = (error: Joi.ValidationError): string => {
+  const annotation = error.annotate();
+  const parsed = annotation.match(/^".+?" (.+)$/);
+  if (parsed && parsed[1]) return parsed[1];
+  else return annotation;
+};
 
 export const buildMessage = (
   pass: boolean,
@@ -44,7 +53,7 @@ export const buildMessage = (
   const receivedIsSimple = !(typeof received === "object" && received !== null);
 
   const br = "\n";
-  const brbr = "\n";
+  const brbr = "\n\n";
 
   const message = pass
     ? print(
@@ -57,8 +66,18 @@ export const buildMessage = (
           `Received:\n${validReceivedInput(received)}`
       )
     : receivedIsSimple
-    ? print(`${hint}\n\n` + `Received:\n${received}`)
-    : print(`${hint}` + `\n\nReceived:${invalidReceivedInput(error)}\n}`);
+    ? print(
+        `${hint}` +
+          brbr +
+          `Received: ${receivedColor(received)}` +
+          br +
+          `Expected: ${expectedColor(
+            "Received " + invalidReceivedInput(error)
+          )}`
+      )
+    : print(
+        `${hint}` + brbr + `Received:` + br + `${invalidReceivedInput(error)}`
+      );
 
   return message;
 };
