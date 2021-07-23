@@ -46,7 +46,7 @@ test("Input should match schema", () => {
   expect(input).toMatchSchema(schema);
 });
 
-// [FAIL]  src/__test__/schema.spec.ts
+// [FAIL]  src/schema.spec.ts
 //  ✕ Input should match schema
 //
 //    expect(received).toMatchSchema(schema)
@@ -63,7 +63,7 @@ test("Input should match schema", () => {
   expect(input).toMatchSchema(schema);
 });
 
-// [FAIL]  src/__test__/schema.spec.ts
+// [FAIL]  src/schema.spec.ts
 //  ✕ Input should match schema
 //
 //    expect(received).toMatchSchema(schema)
@@ -83,7 +83,7 @@ test("Input should not match schema", () => {
   expect(input).not.toMatchSchema(schema);
 });
 
-// [FAIL]  src/__test__/schema.spec.ts
+// [FAIL]  src/schema.spec.ts
 //  ✕ Input should not match schema
 //
 //    expect(received).not.toMatchSchema(schema)
@@ -105,7 +105,7 @@ test("Input should match schema with options", () => {
   expect(input).toMatchSchema(schema, options);
 });
 
-// FAIL  src/__test__/schema.spec.ts
+// FAIL  src/schema.spec.ts
 //  ✕ Input should match schema with options (7ms)
 //
 //    expect(received).toMatchSchema(schema)
