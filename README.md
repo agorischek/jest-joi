@@ -8,10 +8,10 @@ Custom [Matcher](https://jestjs.io/docs/using-matchers) for validating [Joi](htt
 
 ```ts
 const schema = Joi.object({ a: Joi.string() });
-const input = { a: false }
+const input = { a: false };
 
-test('Input should match schema', () => {
-    expect(input).toMatchSchema(schema);
+test("Input should match schema", () => {
+  expect(input).toMatchSchema(schema);
 });
 
 //  FAIL
@@ -22,18 +22,20 @@ test('Input should match schema', () => {
 //    {
 //      "a" [1]: false
 //    }
-//   
+//
 //    [1] "a" must be a string
 ```
 
 ## Setup
 
 ### 1. Install
+
 ```sh
 npm i -D jest-joi
 ```
 
 ### 2. Register Matcher
+
 JavaScript:
 
 ```js
@@ -41,24 +43,25 @@ JavaScript:
 const toMatchSchema = require("jest-joi"))
 expect.extend( toMatchSchema );
 ```
+
 ```js
 //jest.config.js
 module.exports = {
-  setupFilesAfterEnv: ['./jest.setup.js'],
+  setupFilesAfterEnv: ["./jest.setup.js"],
 };
 ```
 
 TypeScript:
+
 ```ts
 // jest.setup.ts
-import { toMatchSchema } from './src';
+import { toMatchSchema } from "./src";
 expect.extend({ toMatchSchema });
 ```
+
 ```ts
 //jest.config.ts
 module.exports = {
-  setupFilesAfterEnv: ['./jest.setup.ts'],
+  setupFilesAfterEnv: ["./jest.setup.ts"],
 };
 ```
-
-
