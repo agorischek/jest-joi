@@ -1,6 +1,6 @@
 # Jest Joi
 
-[Matcher](https://jestjs.io/docs/using-matchers) for validating [Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome error messages and TypeScript support
+[Matcher](https://jestjs.io/docs/using-matchers) for validating [Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome error messages and [TypeScript](https://www.typescriptlang.org) support
 
 [![Version](https://img.shields.io/npm/v/jest-joi)](https://www.npmjs.com/package/jest-joi "Version") [![License](https://img.shields.io/github/license/agorischek/jest-joi)](https://github.com/agorischek/jest-joi/blob/main/LICENSE "License") [![Badges](https://img.shields.io/badge/badges-rolled-white)](https://github.com/agorischek/badge-roll "Badges")
 
