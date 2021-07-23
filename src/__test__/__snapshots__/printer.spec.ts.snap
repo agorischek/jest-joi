@@ -3,17 +3,16 @@
 exports[`Fail message snapshot 1`] = `
 "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoMatchSchema[2m([22m[32mschema[39m[2m)[22m
 
-Received:
-{
+Received:{
   \\"a\\" [31m[1][0m: false
 }
 [31m
-[1] \\"a\\" must be a string[0m"
+[1] \\"a\\" must be a string[0m
+}"
 `;
 
 exports[`Pass message snapshot 1`] = `
 "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoMatchSchema[2m([22m[32mschema[39m[2m)[22m
-
 Schema:
 [32m{[39m
 [32m  type: \\"object\\",[39m
@@ -26,7 +25,6 @@ Schema:
 [32m    }[39m
 [32m  }[39m
 [32m}[39m
-
 Received:
 [31m{[39m
 [31m  a: false[39m

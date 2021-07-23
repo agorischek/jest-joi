@@ -1,3 +1,3 @@
-import { toMatchSchema } from './src';
+import { toMatchSchema } from "./src";
 
 expect.extend({ toMatchSchema });

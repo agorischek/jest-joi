@@ -1,22 +1,36 @@
-import * as Joi from 'joi'
+import * as Joi from "joi";
 import { buildMessage } from "../printer";
 
 const schema = Joi.object({ a: Joi.string().required() });
 
 const input = { a: false };
-const options = {}
+const options = {};
 const { error } = schema.validate(input, options);
 const matcherHintOptions = {
-    isNot: true,
-    promise: "",
-}
+  isNot: true,
+  promise: "",
+};
 
 test("Pass message snapshot", () => {
-    const message = buildMessage(true, "toMatchSchema", input, schema, error, matcherHintOptions)()
-    expect(message).toMatchSnapshot();
-})
+  const message = buildMessage(
+    true,
+    "toMatchSchema",
+    input,
+    schema,
+    error,
+    matcherHintOptions
+  )();
+  expect(message).toMatchSnapshot();
+});
 
 test("Fail message snapshot", () => {
-    const message = buildMessage(false, "toMatchSchema", input, schema, error, matcherHintOptions)()
-    expect(message).toMatchSnapshot();
-})
+  const message = buildMessage(
+    false,
+    "toMatchSchema",
+    input,
+    schema,
+    error,
+    matcherHintOptions
+  )();
+  expect(message).toMatchSnapshot();
+});

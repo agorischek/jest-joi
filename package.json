@@ -16,7 +16,7 @@
     "test:coverage": "jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "ts-node src/index.ts",
-    "validate": "concurrently npm:format:check npm:lint npm:test"
+    "validate": "concurrently \"npm:format:check\" \"npm:lint npm:test\""
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
@@ -25,10 +25,13 @@
     "@typescript-eslint/eslint-plugin": "^2.32.0",
     "@typescript-eslint/parser": "^2.32.0",
     "badge-roll": "0.0.0",
+    "concurrently": "^6.2.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-xo": "^0.37.0",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.4.0",
     "jest": "^25.0.0",
     "prettier": "^2.0.5",
     "prettier-package-json": "^2.6.0",
@@ -37,7 +40,14 @@
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
   },
-  "keywords": ["jest", "joi", "jest-joi", "joi-jest", "schema", "matchers"],
+  "keywords": [
+    "jest",
+    "joi",
+    "jest-joi",
+    "joi-jest",
+    "schema",
+    "matchers"
+  ],
   "author": "Alex Gorischek",
   "license": "MIT",
   "dependencies": {
@@ -45,5 +55,28 @@
     "jest-matcher-utils": "^27.0.6",
     "joi": "^17.4.1",
     "stringify-object": "^3.3.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error"
+    }
+  },
+  "prettier": {
+    "tabWidth": 2
   }
 }
