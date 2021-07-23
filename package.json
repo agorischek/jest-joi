@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^12.12.16",
+    "@types/stringify-object": "^3.3.1",
     "@typescript-eslint/eslint-plugin": "^2.32.0",
     "@typescript-eslint/parser": "^2.32.0",
     "eslint": "^7.0.0",
@@ -33,7 +34,9 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "chalk": "^4.1.1",
     "jest-matcher-utils": "^27.0.6",
-    "joi": "^17.4.1"
+    "joi": "^17.4.1",
+    "stringify-object": "^3.3.0"
   }
 }

@@ -1,5 +1,3 @@
-module.exports = {
-  tabWidth: 2,
-  singleQuote: true,
-  printWidth: 120,
-};
+export const tabWidth = 2;
+export const singleQuote = true;
+export const printWidth = 120;
