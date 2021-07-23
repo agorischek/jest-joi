@@ -1,0 +1,10 @@
+badges:
+  - npm/v
+  - github/license
+  - badge-roll
+
+settings:
+  position: below-lead
+
+about:
+  branch: main
