@@ -8,7 +8,7 @@ const options = {}
 const { error } = schema.validate(input, options);
 const matcherHintOptions = {
     isNot: true,
-    promise: ""
+    promise: "",
 }
 
 test("Pass message snapshot", () => {

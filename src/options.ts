@@ -1,7 +1,8 @@
 import * as Joi from 'joi';
 
-export const processOptions = function (submittedOptions: Joi.ValidationOptions): Joi.ValidationOptions {
+export const processOptions = (submittedOptions: Joi.ValidationOptions): Joi.ValidationOptions => {
     const options = submittedOptions === undefined ? {} : submittedOptions;
-    if (!options.hasOwnProperty('abortEarly')) options.abortEarly = false;
+    const abortEarlyIsSet = Object.prototype.hasOwnProperty.call(options, "abortEarly");
+    if (!abortEarlyIsSet) options.abortEarly = false;
     return options;
 };

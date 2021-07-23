@@ -8,10 +8,12 @@
     "dev": "tsc -p src/tsconfig.json -w",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "jest",
     "test:coverage": "jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "validate": "concurrently npm:format:check npm:lint npm:test"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",

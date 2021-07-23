@@ -7,7 +7,7 @@ const badInput = { a: false, b: false };
 const extendedInput = { a: 'a', b: 'b', c: true };
 
 const options = {
-  allowUnknown: true
+  allowUnknown: true,
 }
 
 test('Matcher should reject an invalid schema', () => {
@@ -45,4 +45,3 @@ test("Should throw when good input doesn't not match schema", () => {
 test("Should throw when good input doesn't not match schema", () => {
   expect(extendedInput).toMatchSchema(schema, options);
 });
-

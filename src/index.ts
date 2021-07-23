@@ -4,11 +4,11 @@ import { MatcherHintOptions } from 'jest-matcher-utils';
 import { buildMessage } from './printer';
 import { processOptions } from './options';
 
-export const toMatchSchema = function (
+export function toMatchSchema(
   this: jest.MatcherContext,
   received: unknown,
   schema: Joi.Schema,
-  submittedOptions: Joi.ValidationOptions
+  submittedOptions: Joi.ValidationOptions,
 ) {
   const matcherName = 'toMatchSchema';
 
@@ -25,7 +25,3 @@ export const toMatchSchema = function (
 
   return { message, pass };
 };
-
-
-
-
