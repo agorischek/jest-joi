@@ -1,5 +1,5 @@
 {
-  "name": "jest-joi-matcher",
+  "name": "jest-joi",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",

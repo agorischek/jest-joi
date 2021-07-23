@@ -1,7 +1,8 @@
 import * as Joi from 'joi';
-import * as chalk from 'chalk';
-import stringifyObject = require('stringify-object');
-import { MatcherHintOptions, matcherHint } from 'jest-matcher-utils';
+import { MatcherHintOptions } from 'jest-matcher-utils';
+
+import { buildMessage } from './printer';
+import { processOptions } from './options';
 
 export const toMatchSchema = function (
   this: jest.MatcherContext,
@@ -25,35 +26,6 @@ export const toMatchSchema = function (
   return { message, pass };
 };
 
-const processOptions = function (submittedOptions: Joi.ValidationOptions): Joi.ValidationOptions {
-  const options = submittedOptions === undefined ? {} : submittedOptions;
-  if (!options.hasOwnProperty('abortEarly')) options.abortEarly = false;
-  return options;
-};
 
-const buildMessage = function (
-  pass: boolean,
-  matcherName: string,
-  received: unknown,
-  schema: Joi.Schema,
-  error: Joi.ValidationError,
-  matcherHintOptions: MatcherHintOptions
-) {
-  const hint = matcherHint(matcherName, 'received', 'schema', matcherHintOptions);
 
-  return pass
-    ? () =>
-      `${hint}\n\n` +
-      `Schema:\n${expectedColor(printObject(schema.describe()))}\n\n` +
-      `Received:\n${receivedColor(printObject(received))}`
-    : () => `${hint}\n\nReceived:\n${error.annotate()}`;
-};
 
-const printObject = (object: unknown) =>
-  stringifyObject(object, {
-    indent: '  ',
-    singleQuotes: false,
-  });
-
-const receivedColor = chalk.red;
-const expectedColor = chalk.green;
