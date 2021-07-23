@@ -1,9 +1,6 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
-import {
-  MatcherHintOptions,
-  matcherHint,
-} from "jest-matcher-utils";
+import { MatcherHintOptions, matcherHint } from "jest-matcher-utils";
 
 import stringifyObject = require("stringify-object");
 
