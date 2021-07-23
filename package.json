@@ -16,7 +16,7 @@
     "test:coverage": "jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "ts-node src/index.ts",
-    "validate": "concurrently \"npm:format:check\" \"npm:lint npm:test\""
+    "validate": "concurrently \"npm:lint\" \"npm:test\""
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
@@ -73,7 +73,8 @@
       "prettier"
     ],
     "rules": {
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "@typescript-eslint/no-namespace": "off"
     }
   },
   "prettier": {
