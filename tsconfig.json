@@ -3,9 +3,9 @@
     "target": "esnext",
     "module": "commonjs",
     "noImplicitAny": true,
+    "rootDir": "src",
     "outDir": "out-ts",
     "sourceMap": true,
     "declaration": false
-  },
-  "exclude": ["node_modules", "dist", "out-ts", "jest.setup.ts", "src/__test__"]
+  }
 }
