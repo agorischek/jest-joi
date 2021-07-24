@@ -26,6 +26,8 @@ const validReceived = (input: unknown): string =>
 
 const invalidReceived = (input: unknown): string => receivedColor(input);
 
+const invalidSchema = (input: unknown): string => receivedColor(input);
+
 const errorExplanation = (error: Joi.ValidationError): string => {
   const annotation = error.annotate();
   const parsed = annotation.match(/^".+?" (.+)$/);
@@ -59,6 +61,7 @@ const stack = (lines: Array<string>): string => {
 };
 
 export const buildMessage = (
+  schemaIsValid: boolean,
   pass: boolean,
   matcherName: string,
   received: unknown,
@@ -69,7 +72,16 @@ export const buildMessage = (
   const hint = buildMatcherHint(matcherName, matcherHintOptions);
   const receivedIsSimple = isSimple(received);
 
-  const messageLines = pass
+  const messageLines = !schemaIsValid
+    ? //If the schema isn't valid:
+      [
+        hint,
+        null,
+        "Submitted schema was not a valid Joi schema",
+        null,
+        "Schema: " + invalidSchema(schema),
+      ]
+    : pass // If the input matched the schema but was negated:
     ? [
         hint,
         null,
@@ -79,14 +91,15 @@ export const buildMessage = (
         "Schema:",
         expectedSchema(schema),
       ]
-    : receivedIsSimple
+    : receivedIsSimple // If the input didn't match, and the schema is simple:
     ? [
         hint,
         null,
         "Received: " + invalidReceived(received),
         "Expected: " + simpleErrorExplanation(error),
       ]
-    : [hint, null, "Received: ", complexErrorExplanation(error)];
+    : // If the input didn't match, and the schema is complex:
+      [hint, null, "Received: ", complexErrorExplanation(error)];
 
   return print(stack(messageLines));
 };

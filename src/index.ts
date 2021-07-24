@@ -19,21 +19,17 @@ export function toMatchSchema(
 
   const options = processOptions(submittedOptions);
 
-  const isSchema = Joi.isSchema(schema);
-  if (!isSchema)
-    return {
-      message: print("Submitted schema was not a valid Joi schema"),
-      pass: false,
-    };
+  const schemaIsValid = Joi.isSchema(schema);
 
-  const { error } = schema.validate(received, options);
-  const pass = !error;
+  const error = schemaIsValid ? schema.validate(received, options).error : null;
+  const pass = schemaIsValid && !error;
 
   const matcherHintOptions: MatcherHintOptions = {
     isNot: this.isNot,
     promise: this.promise,
   };
   const message = buildMessage(
+    schemaIsValid,
     pass,
     matcherName,
     received,
