@@ -1,2 +1,2 @@
 const jestJoi = require("jest-joi")
-expect.extend( jestJoi );
+expect.extend(jestJoi);
