@@ -3,31 +3,31 @@
 
 import * as Joi from "joi";
 
-test("String schema mismatch", () => {
+test("Error message when input doesn't match simple string schema", () => {
   const schema = Joi.string();
   const input = 3;
   expect(input).toMatchSchema(schema);
 });
 
-test("Number schema mismatch", () => {
+test("Error message when input doesn't match simple number schema", () => {
   const schema = Joi.number();
   const input = "a";
   expect(input).toMatchSchema(schema);
 });
 
-test("Boolean schema mismatch", () => {
+test("Error message when input doesn't match simple boolean schema", () => {
   const schema = Joi.boolean();
   const input = 1;
   expect(input).toMatchSchema(schema);
 });
 
-test("Object schema mismatch", () => {
+test("Error message when input doesn't match object schema with one property", () => {
   const schema = Joi.object({ a: Joi.string() });
   const input = { a: false };
   expect(input).toMatchSchema(schema);
 });
 
-test("Object schema multiple mismatch", () => {
+test("Error message when input doesn't match object schema with multiple properties", () => {
   const schema = Joi.object({
     a: Joi.string(),
     b: Joi.number(),
@@ -37,21 +37,26 @@ test("Object schema multiple mismatch", () => {
   expect(input).toMatchSchema(schema);
 });
 
-test("String schema not mismatch", () => {
+test("Error message when input matches string schema and is negated", () => {
   const schema = Joi.string();
   const input = "a";
   expect(input).not.toMatchSchema(schema);
 });
 
-test("Object schema match with options", () => {
-  const schema = Joi.object({});
-  const input = { b: true };
-  const options = { allowUnknown: false };
-  expect(input).toMatchSchema(schema, options);
+test("Error message when a boolean is submitted for a schema", () => {
+  const schema = false;
+  const input = 1;
+  expect(input).toMatchSchema(schema);
 });
 
-test("Bad schema to fail", () => {
-  const schema = false;
-  const input = { b: true };
+test("Error message when an object is submitted for a schema", () => {
+  const schema = { a: 1, b: 2, c: { d: 3 } };
+  const input = 1;
+  expect(input).toMatchSchema(schema);
+});
+
+test("Error message when a function is submitted for a schema", () => {
+  const schema = () => "x";
+  const input = 1;
   expect(input).toMatchSchema(schema);
 });
