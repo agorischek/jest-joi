@@ -1,6 +1,5 @@
-<!-- markdownlint-configure-file { "MD041": false } -->
-
-![Jest Joi Logo](img/logo.png)
+<!-- markdownlint-disable-next-line MD033 MD041 -->
+<img src="img/logo.png" height="130px" />
 
 # Jest Joi
 
