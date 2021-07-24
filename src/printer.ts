@@ -29,7 +29,7 @@ const invalidReceived = (input: unknown): string => receivedColor(input);
 const errorExplanation = (error: Joi.ValidationError): string => {
   const annotation = error.annotate();
   const parsed = annotation.match(/^".+?" (.+)$/);
-  if (parsed && parsed[1]) return `Received: ${parsed[1]}`;
+  if (parsed && parsed[1]) return `Received ${parsed[1]}`;
   else return annotation;
 };
 
