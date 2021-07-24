@@ -9,6 +9,8 @@
   "scripts": {
     "badge": "badge-roll affix",
     "badge:check": "badge-roll check",
+    "dep:check": "depcheck",
+    "dep:upgrade": "ncu --doctor --upgrade",
     "dev": "tsc -p src/tsconfig.json -w",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write .",
@@ -17,7 +19,7 @@
     "test:coverage": "jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "ts-node src/index.ts",
-    "validate": "concurrently \"npm:lint\" \"npm:test\" \"npm:badge:check\""
+    "validate": "concurrently \"npm:lint\" \"npm:test\" \"npm:badge:check\" \"npm:dep:check\""
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
@@ -27,12 +29,11 @@
     "@typescript-eslint/parser": "^2.32.0",
     "badge-roll": "0.0.0",
     "concurrently": "^6.2.0",
-    "eslint-config-airbnb-typescript": "^7.2.1",
+    "depcheck": "^1.4.2",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-config-xo": "^0.37.0",
-    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^26.0.0",
+    "npm-check-updates": "^11.8.3",
     "prettier": "^2.0.5",
     "prettier-package-json": "^2.6.0",
     "rimraf": "^3.0.2",

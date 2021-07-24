@@ -1,0 +1,1 @@
+ignores: ["@types/jest", "@types/node", "jest-joi", "prettier-package-json"]
