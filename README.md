@@ -3,7 +3,7 @@
 
 # Jest Joi
 
-[Matcher](https://jestjs.io/docs/using-matchers) for validating
+[Matcher](https://jestjs.io/docs/using-matchers) for validating input against
 [Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome
 error messages and [TypeScript](https://www.typescriptlang.org) support
 
