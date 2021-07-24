@@ -16,4 +16,12 @@ module.exports = {
   rules: {
     "@typescript-eslint/no-namespace": "off",
   },
+  overrides: [
+    {
+      files: ["README.md/*.js"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+  ],
 };
