@@ -28,13 +28,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run test:coverage
-      - run: npm run lint && npm run badge:check
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          # Artifact name
-          name: build-${{ GITHUB_RUN_NUMBER }}
-          # A file, directory or wildcard pattern that describes what to upload
-          path: ${{ github.workspace }}/dist
-          # The desired behavior if no files are found using the provided path.
-          if-no-files-found: error
+      - run: npm run lint
+      - run: npm run badge:check
+      - run: npm run format:check
+      - run: npm run dep:check
