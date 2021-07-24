@@ -1,50 +1,60 @@
 import * as Joi from "joi";
+const { boolean, number, object, string } = Joi.types();
 
-const schema = Joi.object({
-  a: Joi.string().required(),
-  b: Joi.string().required(),
-});
+test("Should throw when submitted schema isn't valid", () => {
+  const schema = "Not a schema";
+  const input = "a";
 
-const goodInput = { a: "hi", b: "hi" };
-const badInput = { a: false, b: false };
-const extendedInput = { a: "a", b: "b", c: true };
-
-const options = {
-  allowUnknown: true,
-};
-
-test("Matcher should reject an invalid schema", () => {
   expect(() => {
-    expect(goodInput).toMatchSchema("Not a schema");
+    expect(input).toMatchSchema(schema);
   }).toThrow();
 });
 
-test("Matcher should pass when the received value matches the schema", () => {
-  expect(goodInput).toMatchSchema(schema);
+test("Should pass when the received value matches the schema", () => {
+  const schema = object.keys({
+    a: string.required(),
+  });
+  const input = { a: "x" };
+
+  expect(input).toMatchSchema(schema);
 });
 
-test("Bad input with `.not`", () => {
-  expect(badInput).not.toMatchSchema(schema);
+test("Should pass with an invalid input and negation", () => {
+  const schema = number;
+  const input = false;
+
+  expect(input).not.toMatchSchema(schema);
 });
 
 test("Should throw when input doesn't match schema", () => {
+  const schema = string;
+  const input = 2;
+
   expect(() => {
-    expect(badInput).toMatchSchema(schema);
+    expect(input).toMatchSchema(schema);
   }).toThrow();
 });
 
-test("Should throw when good input doesn't not match schema", () => {
+test("Should throw when with valid input and negation", () => {
+  const schema = boolean;
+  const input = true;
+
   expect(() => {
-    expect(goodInput).not.toMatchSchema(schema);
+    expect(input).not.toMatchSchema(schema);
   }).toThrow();
 });
 
-test("Should throw when good input doesn't not match schema", () => {
-  expect(() => {
-    expect(extendedInput).toMatchSchema(schema);
-  }).toThrow();
-});
+test("Should accept options to modify validation behavior", () => {
+  const schema = object.keys({ a: string });
+  const input = { a: "x", b: "y" };
 
-test("Should throw when good input doesn't not match schema", () => {
-  expect(extendedInput).toMatchSchema(schema, options);
+  expect(() => {
+    expect(input).toMatchSchema(schema);
+  }).toThrow();
+
+  const options = {
+    allowUnknown: true,
+  };
+
+  expect(input).toMatchSchema(schema, options);
 });
