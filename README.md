@@ -21,7 +21,7 @@ expect.extend({ toMatchSchema });
 
 // or, jest.setup.js
 const toMatchSchema = require("jest-joi");
-expect.extend( toMatchSchema );
+expect.extend(toMatchSchema);
 ```
 
 Finally, register:
