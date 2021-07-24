@@ -26,9 +26,18 @@ test("Should pass with an invalid input and negation", () => {
   expect(input).not.toMatchSchema(schema);
 });
 
-test("Should throw when input doesn't match schema", () => {
+test("Should throw when input doesn't match simple schema", () => {
   const schema = string;
   const input = 2;
+
+  expect(() => {
+    expect(input).toMatchSchema(schema);
+  }).toThrow();
+});
+
+test("Should throw when input doesn't match complex schema", () => {
+  const schema = object.keys({ a: number, b: boolean });
+  const input = { a: 1, b: "y" };
 
   expect(() => {
     expect(input).toMatchSchema(schema);
