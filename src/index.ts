@@ -4,17 +4,12 @@ import { MatcherHintOptions } from "jest-matcher-utils";
 import { buildMessage } from "./printer";
 import { processOptions } from "./options";
 
-type MatcherResult = {
-  message: () => string;
-  pass: boolean;
-};
-
 export function toMatchSchema(
   this: jest.MatcherContext,
   received: unknown,
   schema: Joi.Schema,
   submittedOptions: Joi.ValidationOptions
-): MatcherResult {
+): jest.CustomMatcherResult {
   const matcherName = "toMatchSchema";
 
   const options = processOptions(submittedOptions);
