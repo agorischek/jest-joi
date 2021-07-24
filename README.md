@@ -43,7 +43,23 @@ property.
 
 ## Usage
 
-```ts
+Just call the `.toMatchSchema()` matcher with the Joi schema to validate the
+input against:
+
+```js
+expect(input).toMatchSchema(schema);
+```
+
+Options may be passed as an optional second parameter:
+
+```js
+expect(input).toMatchSchema(schema, options);
+```
+
+When the input doesn't match the schema, Jest Joi will provide detailed error
+messages:
+
+```js
 // Simple mismatches describe the error:
 
 test("Input should match schema", () => {
