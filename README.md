@@ -14,25 +14,16 @@ npm i -D jest-joi
 
 Then, extend:
 
-```ts
-// jest.setup.ts
-import { toMatchSchema } from "jest-joi";
-expect.extend({ toMatchSchema });
-
-// or, jest.setup.js
-const toMatchSchema = require("jest-joi");
-expect.extend(toMatchSchema);
+```js
+// jest.setup.js
+const jestJoi = require("jest-joi");
+expect.extend(jestJoi);
 ```
 
 Finally, register:
 
-```ts
-// jest.config.ts
-module.exports = {
-  setupFilesAfterEnv: ["./jest.setup.ts"],
-};
-
-// or, jest.config.js
+```js
+// jest.config.js
 module.exports = {
   setupFilesAfterEnv: ["./jest.setup.js"],
 };
