@@ -7,12 +7,12 @@ import stringifyObject = require("stringify-object");
 const receivedColor = chalk.red;
 const expectedColor = chalk.green;
 
-export const print =
+const print =
   (message: string): (() => string) =>
   (): string =>
     message;
 
-export const printObject = (object: unknown): string =>
+const printObject = (object: unknown): string =>
   stringifyObject(object, {
     indent: "  ",
     singleQuotes: false,
