@@ -1,7 +1,7 @@
 import * as Joi from "joi";
 import { MatcherHintOptions } from "jest-matcher-utils";
 
-import { buildMessage, print } from "./printer";
+import { buildMessage } from "./printer";
 import { processOptions } from "./options";
 
 type MatcherResult = {
