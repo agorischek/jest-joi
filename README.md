@@ -43,14 +43,15 @@ property.
 
 ## Usage
 
-Just call the `.toMatchSchema()` matcher with the Joi schema to validate the
-input against:
+Just call the `.toMatchSchema()` matcher with the
+[Joi schema](https://joi.dev/api/) to validate the input against:
 
 ```js
 expect(input).toMatchSchema(schema);
 ```
 
-Options may be passed as an optional second parameter:
+[Options](https://joi.dev/api/#anyvalidatevalue-options) may be passed as an
+optional second parameter:
 
 ```js
 expect(input).toMatchSchema(schema, options);
