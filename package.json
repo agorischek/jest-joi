@@ -17,6 +17,7 @@
     "format:check": "prettier --check .",
     "test": "jest",
     "test:coverage": "jest --collectCoverage",
+    "test:errors": "jest errors",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "ts-node src/index.ts",
     "validate": "concurrently \"npm:lint\" \"npm:format:check\" \"npm:test\" \"npm:badge:check\" \"npm:dep:check\""
