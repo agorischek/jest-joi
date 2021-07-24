@@ -33,5 +33,8 @@ export function toMatchSchema(
     matcherHintOptions
   );
 
-  return { message, pass };
+  return {
+    message,
+    pass,
+  };
 }

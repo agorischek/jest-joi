@@ -27,8 +27,12 @@ test("Error message when input doesn't match simple boolean schema", () => {
 });
 
 test("Error message when input doesn't match object schema with one property", () => {
-  const schema = Joi.object({ a: Joi.string() });
-  const input = { a: false };
+  const schema = Joi.object({
+    a: Joi.string(),
+  });
+  const input = {
+    a: false,
+  };
 
   wrap(input, schema);
 });
@@ -39,7 +43,11 @@ test("Error message when input doesn't match object schema with multiple propert
     b: Joi.number(),
     c: Joi.boolean(),
   });
-  const input = { a: false, b: "x", c: 1 };
+  const input = {
+    a: false,
+    b: "x",
+    c: 1,
+  };
 
   wrap(input, schema);
 });
@@ -59,7 +67,13 @@ test("Error message when a boolean is submitted for a schema", () => {
 });
 
 test("Error message when an object is submitted for a schema", () => {
-  const schema = { a: 1, b: 2, c: { d: 3 } };
+  const schema = {
+    a: 1,
+    b: 2,
+    c: {
+      d: 3,
+    },
+  };
   const input = 1;
 
   wrap(input, schema);

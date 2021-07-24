@@ -14,7 +14,9 @@ test("Should pass when the received value matches the schema", () => {
   const schema = object.keys({
     a: string.required(),
   });
-  const input = { a: "x" };
+  const input = {
+    a: "x",
+  };
 
   expect(input).toMatchSchema(schema);
 });
@@ -36,8 +38,14 @@ test("Should throw when input doesn't match simple schema", () => {
 });
 
 test("Should throw when input doesn't match complex schema", () => {
-  const schema = object.keys({ a: number, b: boolean });
-  const input = { a: 1, b: "y" };
+  const schema = object.keys({
+    a: number,
+    b: boolean,
+  });
+  const input = {
+    a: 1,
+    b: "y",
+  };
 
   expect(() => {
     expect(input).toMatchSchema(schema);
@@ -54,8 +62,13 @@ test("Should throw when with valid input and negation", () => {
 });
 
 test("Should accept options to modify validation behavior", () => {
-  const schema = object.keys({ a: string });
-  const input = { a: "x", b: "y" };
+  const schema = object.keys({
+    a: string,
+  });
+  const input = {
+    a: "x",
+    b: "y",
+  };
 
   expect(() => {
     expect(input).toMatchSchema(schema);
