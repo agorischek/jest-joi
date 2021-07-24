@@ -1,8 +1,16 @@
+<!-- markdownlint-configure-file { "MD041": false } -->
+
+![Jest Joi Logo](img/logo.png)
+
 # Jest Joi
 
-[Matcher](https://jestjs.io/docs/using-matchers) for validating [Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome error messages and [TypeScript](https://www.typescriptlang.org) support
+[Matcher](https://jestjs.io/docs/using-matchers) for validating
+[Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome
+error messages and [TypeScript](https://www.typescriptlang.org) support
 
-[![Version](https://img.shields.io/npm/v/jest-joi)](https://www.npmjs.com/package/jest-joi "Version") [![License](https://img.shields.io/github/license/agorischek/jest-joi)](https://github.com/agorischek/jest-joi/blob/main/LICENSE "License") [![Badges](https://img.shields.io/badge/badges-rolled-white)](https://github.com/agorischek/badge-roll "Badges")
+[![Version](https://img.shields.io/npm/v/jest-joi)](https://www.npmjs.com/package/jest-joi "Version")
+[![License](https://img.shields.io/github/license/agorischek/jest-joi)](https://github.com/agorischek/jest-joi/blob/main/LICENSE "License")
+[![Badges](https://img.shields.io/badge/badges-rolled-white)](https://github.com/agorischek/badge-roll "Badges")
 
 ## Setup
 
@@ -29,7 +37,10 @@ module.exports = {
 };
 ```
 
-For more configuration options, see the [Jest configuration docs](https://jestjs.io/docs/configuration), especially the [`setupFilesAfterEnv`](https://jestjs.io/docs/configuration#setupfilesafterenv-array) property.
+For more configuration options, see the
+[Jest configuration docs](https://jestjs.io/docs/configuration), especially the
+[`setupFilesAfterEnv`](https://jestjs.io/docs/configuration#setupfilesafterenv-array)
+property.
 
 ## Usage
 
@@ -55,8 +66,12 @@ test("Input should match schema", () => {
 // Complex mismatches annotate the input:
 
 test("Input should match schema", () => {
-  const schema = Joi.object({ a: Joi.string() });
-  const input = { a: false };
+  const schema = Joi.object({
+    a: Joi.string(),
+  });
+  const input = {
+    a: false,
+  };
   expect(input).toMatchSchema(schema);
 });
 
@@ -99,8 +114,12 @@ test("Input should not match schema", () => {
 
 test("Input should match schema with options", () => {
   const schema = Joi.object({});
-  const input = { b: true };
-  const options = { allowUnknown: false };
+  const input = {
+    b: true,
+  };
+  const options = {
+    allowUnknown: false,
+  };
   expect(input).toMatchSchema(schema, options);
 });
 

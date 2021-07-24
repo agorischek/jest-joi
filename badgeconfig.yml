@@ -5,6 +5,7 @@ badges:
 
 settings:
   position: below-lead
+  separator: newline
 
 about:
   branch: main
