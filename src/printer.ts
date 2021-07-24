@@ -4,7 +4,8 @@ import { MatcherHintOptions, matcherHint } from "jest-matcher-utils";
 
 import stringifyObject = require("stringify-object");
 
-type JestMessage = () => string;
+const receivedColor = chalk.red;
+const expectedColor = chalk.green;
 
 export const print =
   (message: string): (() => string) =>
@@ -17,20 +18,44 @@ export const printObject = (object: unknown): string =>
     singleQuotes: false,
   });
 
-const receivedColor = chalk.red;
-const expectedColor = chalk.green;
-
 const expectedSchema = (schema: Joi.Schema): string =>
   expectedColor(printObject(schema.describe()));
 
-const validReceivedInput = (input: unknown): string =>
+const validReceived = (input: unknown): string =>
   receivedColor(printObject(input));
 
-const invalidReceivedInput = (error: Joi.ValidationError): string => {
+const invalidReceived = (input: unknown): string => receivedColor(input);
+
+const errorExplanation = (error: Joi.ValidationError): string => {
   const annotation = error.annotate();
   const parsed = annotation.match(/^".+?" (.+)$/);
-  if (parsed && parsed[1]) return parsed[1];
+  if (parsed && parsed[1]) return `Received: ${parsed[1]}`;
   else return annotation;
+};
+
+const simpleErrorExplanation = (error: Joi.ValidationError): string => {
+  return expectedColor(errorExplanation(error));
+};
+
+const complexErrorExplanation = (error: Joi.ValidationError): string => {
+  return errorExplanation(error);
+};
+
+const buildMatcherHint = (
+  matcherName: string,
+  matcherHintOptions: jest.MatcherHintOptions
+) => {
+  return matcherHint(matcherName, "received", "schema", matcherHintOptions);
+};
+
+const isSimple = (input: unknown) =>
+  !(typeof input === "object" && input !== null);
+
+const stack = (lines: Array<string>): string => {
+  const reducer = (accumulator: string, value: string) => {
+    return value === null ? accumulator + "\n" : accumulator + "\n" + value;
+  };
+  return lines.reduce(reducer);
 };
 
 export const buildMessage = (
@@ -40,41 +65,28 @@ export const buildMessage = (
   schema: Joi.Schema,
   error: Joi.ValidationError,
   matcherHintOptions: MatcherHintOptions
-): JestMessage => {
-  const hint = matcherHint(
-    matcherName,
-    "received",
-    "schema",
-    matcherHintOptions
-  );
-  const receivedIsSimple = !(typeof received === "object" && received !== null);
+): (() => string) => {
+  const hint = buildMatcherHint(matcherName, matcherHintOptions);
+  const receivedIsSimple = isSimple(received);
 
-  const br = "\n";
-  const brbr = "\n\n";
-
-  const message = pass
-    ? print(
-        `${hint}` +
-          brbr +
-          `Schema:` +
-          br +
-          `${expectedSchema(schema)}` +
-          brbr +
-          `Received:\n${validReceivedInput(received)}`
-      )
+  const messageLines = pass
+    ? [
+        hint,
+        null,
+        "Received:",
+        validReceived(received),
+        null,
+        "Schema:",
+        expectedSchema(schema),
+      ]
     : receivedIsSimple
-    ? print(
-        `${hint}` +
-          brbr +
-          `Received: ${receivedColor(received)}` +
-          br +
-          `Expected: ${expectedColor(
-            "Received " + invalidReceivedInput(error)
-          )}`
-      )
-    : print(
-        `${hint}` + brbr + `Received:` + br + `${invalidReceivedInput(error)}`
-      );
+    ? [
+        hint,
+        null,
+        "Received: " + invalidReceived(received),
+        "Expected: " + simpleErrorExplanation(error),
+      ]
+    : [hint, null, "Received: ", complexErrorExplanation(error)];
 
-  return message;
+  return print(stack(messageLines));
 };
