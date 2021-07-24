@@ -117,12 +117,13 @@ test("Input should not match schema", () => {
 //
 //    expect(received).not.toMatchSchema(schema)
 //
+//    Received:
+//    "a"
+//
 //    Schema:
 //    {
 //      type: "string"
 //    }
-//    Received:
-//    "a"
 ```
 
 ```ts
