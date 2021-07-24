@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "badge": "badge-roll affix",
-    "badge:check": "badge-roll affix",
+    "badge:check": "badge-roll check",
     "dev": "tsc -p src/tsconfig.json -w",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write .",
@@ -17,7 +17,7 @@
     "test:coverage": "jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "ts-node src/index.ts",
-    "validate": "concurrently \"npm:lint\" \"npm:test\""
+    "validate": "concurrently \"npm:lint\" \"npm:test\" \"npm:badge:check\""
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
