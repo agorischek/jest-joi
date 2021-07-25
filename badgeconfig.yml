@@ -1,5 +1,6 @@
 badges:
   - npm/v
+  - github/workflow/status
   - github/license
   - badge-roll
 
@@ -9,3 +10,4 @@ settings:
 
 about:
   branch: main
+  workflow: CI
