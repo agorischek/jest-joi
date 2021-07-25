@@ -100,6 +100,7 @@ test("Input should match schema", () => {
 //    {
 //      "a" [1]: false
 //    }
+//
 //    [1] "a" must be a string
 ```
 
