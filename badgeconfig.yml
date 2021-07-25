@@ -1,6 +1,7 @@
 badges:
   - npm/v
   - github/workflow/status
+  - codecov/c
   - github/license
   - badge-roll
 
