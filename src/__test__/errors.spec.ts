@@ -59,6 +59,21 @@ test("Error message when input matches string schema and is negated", () => {
   wrap(input, schema, true);
 });
 
+test("Error message when input matches object schema and is negated", () => {
+  const schema = Joi.object({
+    a: Joi.string(),
+    b: Joi.number(),
+    c: Joi.boolean(),
+  });
+  const input = {
+    a: "x",
+    b: 2,
+    c: false,
+  };
+
+  wrap(input, schema, true);
+});
+
 test("Error message when a boolean is submitted for a schema", () => {
   const schema = false;
   const input = 1;

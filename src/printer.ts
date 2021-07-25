@@ -26,7 +26,12 @@ const validReceived = (input: unknown): string =>
 
 const invalidReceived = (input: unknown): string => receivedColor(input);
 
-const invalidSchema = (input: unknown): string => receivedColor(input);
+const invalidSchema = (input: unknown): string => {
+  return isSimple(input)
+    ? receivedColor(input)
+    : receivedColor(printObject(input));
+};
+const validSchemaExplanation = (input: string): string => expectedColor(input);
 
 const errorExplanation = (error: Joi.ValidationError): string => {
   const annotation = error.annotate();
@@ -55,7 +60,11 @@ const isSimple = (input: unknown) =>
 
 const stack = (lines: Array<string>): string => {
   const reducer = (accumulator: string, value: string) => {
-    return value === null ? accumulator + "\n" : accumulator + "\n" + value;
+    return value === ""
+      ? accumulator + "\n"
+      : value === null
+      ? accumulator
+      : accumulator + "\n" + value;
   };
   return lines.reduce(reducer);
 };
@@ -71,35 +80,37 @@ export const buildMessage = (
 ): (() => string) => {
   const hint = buildMatcherHint(matcherName, matcherHintOptions);
   const receivedIsSimple = isSimple(received);
+  const schemaIsSimple = isSimple(schema);
 
   const messageLines = !schemaIsValid
     ? //If the schema isn't valid:
       [
         hint,
-        null,
-        "Submitted schema was not a valid Joi schema",
-        null,
-        "Schema: " + invalidSchema(schema),
+        "",
+        "Expected: " +
+          validSchemaExplanation("Schema must be a valid Joi schema"),
+        schemaIsSimple ? "Schema: " + invalidSchema(schema) : "Schema:",
+        schemaIsSimple ? null : invalidSchema(schema),
       ]
     : pass // If the input matched the schema but was negated:
     ? [
         hint,
-        null,
-        "Received:",
-        validReceived(received),
-        null,
+        "",
+        receivedIsSimple ? "Received: " + validReceived(received) : "Received:",
+        receivedIsSimple ? null : validReceived(received),
+        "",
         "Schema:",
         expectedSchema(schema),
       ]
     : receivedIsSimple // If the input didn't match, and the schema is simple:
     ? [
         hint,
-        null,
+        "",
         "Received: " + invalidReceived(received),
         "Expected: " + simpleErrorExplanation(error),
       ]
     : // If the input didn't match, and the schema is complex:
-      [hint, null, "Received: ", complexErrorExplanation(error)];
+      [hint, "", "Received: ", complexErrorExplanation(error)];
 
   return print(stack(messageLines));
 };
