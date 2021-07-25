@@ -21,7 +21,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && markdownlint-cli2",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx && markdownlint-cli2-fix",
     "start": "ts-node src/index.ts",
-    "validate": "concurrently \"npm:lint\" \"npm:format:check\" \"npm:test\" \"npm:badge:check\" \"npm:dep:check\""
+    "validate": "concurrently --success all \"npm:lint\" \"npm:format:check\" \"npm:test\" \"npm:badge:check\" \"npm:dep:check\""
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
