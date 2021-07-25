@@ -5,10 +5,7 @@ export * from "./match-schema";
 declare global {
   namespace jest {
     interface Matchers<R> {
-      toMatchSchema(
-        schema: Joi.Schema | unknown,
-        options?: Joi.ValidationOptions | unknown
-      ): R;
+      toMatchSchema(schema: Joi.Schema, options?: Joi.ValidationOptions): R;
     }
   }
 }
