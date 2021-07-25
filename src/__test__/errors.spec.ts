@@ -74,28 +74,8 @@ test("Error message when input matches object schema and is negated", () => {
   wrap(input, schema, true);
 });
 
-test("Error message when a boolean is submitted for a schema", () => {
-  const schema = false;
-  const input = 1;
-
-  wrap(input, schema);
-});
-
-test("Error message when an object is submitted for a schema", () => {
-  const schema = {
-    a: 1,
-    b: 2,
-    c: {
-      d: 3,
-    },
-  };
-  const input = 1;
-
-  wrap(input, schema);
-});
-
-test("Error message when a function is submitted for a schema", () => {
-  const schema = () => "x";
+test("Error message when a undefined is submitted for a schema", () => {
+  const schema: string = undefined;
   const input = 1;
 
   wrap(input, schema);

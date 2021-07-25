@@ -14,21 +14,24 @@ export function toMatchSchema(
 
   const options = processOptions(submittedOptions);
 
-  const schemaIsValid = Joi.isSchema(schema);
+  const compiledSchema = schema === undefined ? undefined : Joi.compile(schema);
+  const compiledSchemaIsValid = Joi.isSchema(compiledSchema);
 
-  const error = schemaIsValid ? schema.validate(received, options).error : null;
-  const pass = schemaIsValid && !error;
+  const error = compiledSchemaIsValid
+    ? compiledSchema.validate(received, options).error
+    : null;
+  const pass = compiledSchemaIsValid && !error;
 
   const matcherHintOptions: MatcherHintOptions = {
     isNot: this.isNot,
     promise: this.promise,
   };
   const message = buildMessage(
-    schemaIsValid,
+    compiledSchemaIsValid,
     pass,
     matcherName,
     received,
-    schema,
+    compiledSchema,
     error,
     matcherHintOptions
   );

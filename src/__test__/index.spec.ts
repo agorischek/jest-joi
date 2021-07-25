@@ -61,6 +61,48 @@ test("Should throw when with valid input and negation", () => {
   }).toThrow();
 });
 
+test("Should pass with an uncompiled schema and valid input", () => {
+  const schema = 1;
+  const input = 1;
+  expect(input).toMatchSchema(schema);
+});
+
+test("Should pass when the received value matches a simple uncompiled schema", () => {
+  const schema = 1;
+  const input = 1;
+  expect(input).toMatchSchema(schema);
+});
+
+test("Should pass when the received value doesn't match a simple uncompiled schema as is negated", () => {
+  const schema = 1;
+  const input = 2;
+  expect(input).not.toMatchSchema(schema);
+});
+
+test("Should pass when the received value matches a complex uncompiled schema", () => {
+  const schema = {
+    a: true,
+    b: ["x", "y", "z"],
+    c: {
+      d: [1, 2],
+    },
+  };
+  const input = { a: true, b: "x" };
+  expect(input).toMatchSchema(schema);
+});
+
+test("Should throw when the received value doesn't match a complex uncompiled schema", () => {
+  const schema = {
+    a: true,
+    b: ["x", "y", "z"],
+    c: {
+      d: [1, 2],
+    },
+  };
+  const input = { e: false };
+  expect(() => expect(input).toMatchSchema(schema)).toThrow();
+});
+
 test("Should accept options to modify validation behavior", () => {
   const schema = object.keys({
     a: string,
