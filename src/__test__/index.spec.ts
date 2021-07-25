@@ -103,6 +103,23 @@ test("Should throw when the received value doesn't match a complex uncompiled sc
   expect(() => expect(input).toMatchSchema(schema)).toThrow();
 });
 
+test("Should pass when the received value matches a partially uncompiled schema", () => {
+  const schema = {
+    a: Joi.string().required(),
+  };
+  const input = { a: "b" };
+  expect(input).toMatchSchema(schema);
+});
+
+test("Should pass when the received value doesn't match a partially uncompiled schema and is negated", () => {
+  const schema = {
+    a: string.required(),
+    b: number.required(),
+  };
+  const input = { a: "b" };
+  expect(input).not.toMatchSchema(schema);
+});
+
 test("Should accept options to modify validation behavior", () => {
   const schema = object.keys({
     a: string,
