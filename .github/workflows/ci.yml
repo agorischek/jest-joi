@@ -24,6 +24,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run test:coverage
+      - run: npm run test:coverage:upload
       - run: npm run lint
       - run: npm run badge:check
       - run: npm run format:check
