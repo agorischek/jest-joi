@@ -9,7 +9,6 @@
   "scripts": {
     "badge": "badge-roll affix",
     "badge:check": "badge-roll check",
-    "demo": "node demo.js",
     "dep:check": "depcheck",
     "dep:upgrade": "ncu --doctor --upgrade",
     "dev": "tsc -p src/tsconfig.json -w",
@@ -68,5 +67,6 @@
   "peerDependencies": {
     "jest": ">12.0.0",
     "joi": ">1.0.0"
-  }
+  },
+  "runkitExampleFilename": "demos/runkit.js"
 }
