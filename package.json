@@ -9,6 +9,7 @@
   "scripts": {
     "badge": "badge-roll affix",
     "badge:check": "badge-roll check",
+    "demo": "node src/demo-only/demo.js",
     "dep:check": "depcheck",
     "dep:upgrade": "ncu --doctor --upgrade",
     "dev": "tsc -p src/tsconfig.json -w",
