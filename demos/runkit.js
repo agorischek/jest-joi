@@ -2,10 +2,8 @@
 features of Jest. For full functionality, install `jest-joi` locally in
 your project. See npmjs.com/package/jest-joi for setup instructions.
 Hit "run" below to see some results! */
-// const { test, expect } = require("../dist").demo("runkit");
+const { test, expect } = require("jest-joi").demo("runkit");
 // The above line is only for this demo — don't include it in your project.
-
-const { test, expect } = require("../dist").demo();
 
 const Joi = require("joi");
 
