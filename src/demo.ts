@@ -1,5 +1,5 @@
-const jestJoi = require("../../dist");
-const chalk = require("chalk");
+import * as jestJoi from ".";
+import * as chalk from "chalk";
 
 const passText = " PASS ";
 const failText = " FAIL ";
@@ -8,7 +8,7 @@ function pass() {
   console.log(chalk.black.bgGreen(passText));
 }
 
-function fail(message) {
+function fail(message: string) {
   console.log(chalk.black.bgRed(failText) + "\n\n" + message);
 }
 
@@ -18,15 +18,18 @@ function asyncUnsupported() {
   );
 }
 
-function makeMatcher(context, received) {
-  return function toMatchSchema(schema) {
+function makeMatcher(
+  context: { isNot: boolean; promise: string },
+  received: unknown
+) {
+  return function toMatchSchema(schema: unknown) {
     const result = jestJoi.toMatchSchema.call(context, received, schema);
     if (result.pass && context.isNot === false) pass();
     else fail(result.message.call(context));
   };
 }
 
-function expect(received) {
+function expect(received: unknown) {
   return {
     resolves: {
       toMatchSchema: asyncUnsupported,
@@ -47,10 +50,17 @@ function expect(received) {
   };
 }
 
-function test(name, fn) {
+function test(name: string, fn: () => void) {
   console.log(chalk.bold(name + "\n"));
   fn();
   console.log("\n");
 }
 
-module.exports = { expect, test };
+export function demo() {
+  console.log(
+    chalk.bold.yellow.inverse(
+      "\nThis is a demo environment for Jest Joi. Do not call `.demo()` in your actual project. See npmjs.com/package/jest-joi for setup instructions.\n"
+    )
+  );
+  return { expect, test };
+}

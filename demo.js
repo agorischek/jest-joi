@@ -1,4 +1,4 @@
-const { expect, test } = require(".");
+const { test, expect } = require("./dist").demo();
 const Joi = require("joi");
 
 test("A number will not match a string schema", () => {

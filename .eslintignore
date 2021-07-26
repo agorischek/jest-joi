@@ -3,4 +3,4 @@ dist
 out-ts
 coverage
 jest.setup.js
-src/demo-only
+demo.js

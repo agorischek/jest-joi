@@ -1,6 +1,7 @@
 import * as Joi from "joi";
 
 export * from "./match-schema";
+export * from "./demo";
 
 declare global {
   namespace jest {
