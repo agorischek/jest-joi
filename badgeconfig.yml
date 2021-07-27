@@ -1,7 +1,8 @@
 badges:
   - npm/v
   - runkit
-  - github/workflow/status
+  - id: github/workflow/status
+    to: https://github.com/agorischek/jest-joi/actions/workflows/ci.yml
   - codecov/c
   - github/license
   - badge-roll
