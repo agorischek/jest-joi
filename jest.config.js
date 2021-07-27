@@ -3,4 +3,5 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   setupFilesAfterEnv: ["./jest.setup.js"],
   testPathIgnorePatterns: ["dist", "out-ts"],
+  coveragePathIgnorePatterns: ["demo.ts", "node_modules"],
 };
