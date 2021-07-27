@@ -6,12 +6,20 @@ your project. See npmjs.com/package/jest-joi for setup instructions. */
 const { test, expect } = require("jest-joi").demo("runkit");
 
 // Hit "run" below to see some results!
-// You can copy over examples from the documentation.
+// You can also copy over examples from the documentation.
 
 const Joi = require("joi");
 
-test("A number will not match a string schema", () => {
+// This one will pass! 🎉
+test("A string should match its schema", () => {
   const schema = Joi.string();
-  const input = 3;
+  const input = "Hello!";
+  expect(input).toMatchSchema(schema);
+});
+
+// But this one will fail 😔
+test("An object should match its schema", () => {
+  const schema = { a: Joi.string() };
+  const input = { a: false };
   expect(input).toMatchSchema(schema);
 });
