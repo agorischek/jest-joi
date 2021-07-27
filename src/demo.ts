@@ -1,20 +1,25 @@
 import * as jestJoi from ".";
 import * as chalk from "chalk";
+import Joi = require("joi");
 
 let env = "";
 
-function passText() {
+function log(content: string): void {
+  if (env !== "test") console.log(content);
+}
+
+function logBreak(): void {
+  if (env !== "runkit" && env !== "test") console.log("");
+}
+
+function passText(): string {
   if (env === "runkit") return "[PASS]";
   else return " PASS ";
 }
 
-function failText() {
+function failText(): string {
   if (env === "runkit") return "[FAIL]";
   else return " FAIL ";
-}
-
-function logBreak() {
-  if (env !== "runkit") console.log("");
 }
 
 function pass() {
@@ -22,29 +27,61 @@ function pass() {
 }
 
 function fail(message: string) {
-  console.log(chalk.black.bgRed(failText()));
+  log(chalk.black.bgRed(failText()));
   logBreak();
-  console.log(message);
+  log(message);
 }
 
-function asyncUnsupported() {
-  console.log(
+function asyncUnsupported(expected?: unknown) {
+  log(
     "This demo environment doesn't support async tests. Install jest-joi in your local environment instead!"
   );
+  expected;
 }
 
 function makeMatcher(
   context: { isNot: boolean; promise: string },
   received: unknown
-) {
-  return function toMatchSchema(schema: unknown) {
-    const result = jestJoi.toMatchSchema.call(context, received, schema);
+): Matcher {
+  return function toMatchSchema(
+    schema: unknown,
+    options?: Joi.ValidationOptions
+  ) {
+    const result = jestJoi.toMatchSchema.call(
+      context,
+      received,
+      schema,
+      options
+    );
     if (result.pass && context.isNot === false) pass();
     else fail(result.message.call(context));
   };
 }
 
-function expect(received: unknown) {
+type Exit = (received?: unknown) => void;
+
+type Matcher = (schema: unknown, options?: Joi.ValidationOptions) => void;
+
+type Expect = (received: unknown) => {
+  resolves: {
+    toMatchSchema: Exit;
+    not: {
+      toMatchSchema: Exit;
+    };
+  };
+  rejects: {
+    toMatchSchema: Exit;
+    not: {
+      toMatchSchema: Exit;
+    };
+  };
+  toMatchSchema: Matcher;
+  not: {
+    toMatchSchema: Matcher;
+  };
+};
+
+const expect: Expect = (received: unknown) => {
   return {
     resolves: {
       toMatchSchema: asyncUnsupported,
@@ -63,19 +100,21 @@ function expect(received: unknown) {
       toMatchSchema: makeMatcher({ isNot: true, promise: "" }, received),
     },
   };
-}
+};
 
-function test(name: string, fn: () => void) {
-  console.log(chalk.bold(name));
+type Test = (name: string, fn: () => void) => void;
+
+const test: Test = (name, fn) => {
+  log(chalk.bold(name));
   logBreak();
   fn();
   logBreak();
-}
+};
 
-export function demo(envInput: string) {
+export function demo(envInput?: string): { expect: Expect; test: Test } {
   env = envInput;
   logBreak();
-  console.log(
+  log(
     chalk.bold.yellow.inverse(
       "This is a demo environment for Jest Joi. Do not call `.demo()` in your actual project. See npmjs.com/package/jest-joi for setup instructions."
     )
