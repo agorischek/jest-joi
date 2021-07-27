@@ -74,13 +74,14 @@ export const buildMessage = (
   pass: boolean,
   matcherName: string,
   received: unknown,
+  originalSchema: Joi.SchemaLike,
   schema: Joi.Schema,
   error: Joi.ValidationError,
   matcherHintOptions: MatcherHintOptions
 ): (() => string) => {
   const hint = buildMatcherHint(matcherName, matcherHintOptions);
   const receivedIsSimple = isSimple(received);
-  const schemaIsSimple = isSimple(schema);
+  const originalSchemaIsSimple = isSimple(originalSchema);
 
   const messageLines = !schemaIsValid
     ? //If the schema isn't valid:
@@ -89,8 +90,10 @@ export const buildMessage = (
         "",
         "Expected: " +
           validSchemaExplanation("Schema must be a valid Joi schema"),
-        schemaIsSimple ? "Schema: " + invalidSchema(schema) : "Schema:",
-        schemaIsSimple ? null : invalidSchema(schema),
+        originalSchemaIsSimple
+          ? "Schema: " + invalidSchema(originalSchema)
+          : "Schema:",
+        originalSchemaIsSimple ? null : invalidSchema(originalSchema),
       ]
     : pass // If the input matched the schema but was negated:
     ? [
