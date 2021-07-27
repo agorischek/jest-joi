@@ -23,7 +23,7 @@ function failText(): string {
 }
 
 function pass() {
-  console.log(chalk.black.bgGreen(passText()));
+  log(chalk.black.bgGreen(passText()));
 }
 
 function fail(message: string) {
