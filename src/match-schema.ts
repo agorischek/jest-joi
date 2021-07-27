@@ -14,7 +14,7 @@ export function toMatchSchema(
 
   const options = processOptions(submittedOptions);
 
-  const compiledSchema = schema === undefined ? undefined : Joi.compile(schema);
+  const compiledSchema = compileSchema(schema);
   const compiledSchemaIsValid = Joi.isSchema(compiledSchema);
 
   const error = compiledSchemaIsValid
@@ -31,6 +31,7 @@ export function toMatchSchema(
     pass,
     matcherName,
     received,
+    schema,
     compiledSchema,
     error,
     matcherHintOptions
@@ -40,4 +41,16 @@ export function toMatchSchema(
     message,
     pass,
   };
+}
+
+function compileSchema(schema: Joi.SchemaLike) {
+  if (schema === undefined) {
+    return undefined;
+  } else {
+    try {
+      return Joi.compile(schema);
+    } catch {
+      return null;
+    }
+  }
 }
