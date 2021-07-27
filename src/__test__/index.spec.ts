@@ -120,6 +120,20 @@ test("Should pass when the received value doesn't match a partially uncompiled s
   expect(input).not.toMatchSchema(schema);
 });
 
+test("Should throw when the schema contains an unsupported data type", () => {
+  const schema = BigInt("999999999999999999");
+  const input = 2;
+  expect(() => expect(input).toMatchSchema(schema)).toThrow();
+});
+
+test("Should throw when the schema contains a nested unsupported data type", () => {
+  const schema = {
+    big: BigInt("999999999999999999"),
+  };
+  const input = { big: 2 };
+  expect(() => expect(input).toMatchSchema(schema)).toThrow();
+});
+
 test("Should accept options to modify validation behavior", () => {
   const schema = object.keys({
     a: string,
