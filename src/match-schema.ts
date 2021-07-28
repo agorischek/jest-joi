@@ -1,56 +1,21 @@
 import * as Joi from "joi";
-import { MatcherHintOptions } from "jest-matcher-utils";
 
-import { buildMessage } from "./printer";
-import { processOptions } from "./options";
+import { Message, Options, Schema, Result } from "./classes";
 
 export function toMatchSchema(
   this: jest.MatcherContext,
   received: unknown,
-  schema: Joi.Schema,
+  submittedSchema: Joi.Schema,
   submittedOptions: Joi.ValidationOptions
 ): jest.CustomMatcherResult {
-  const matcherName = "toMatchSchema";
-
-  const options = processOptions(submittedOptions);
-
-  const compiledSchema = compileSchema(schema);
-  const compiledSchemaIsValid = Joi.isSchema(compiledSchema);
-
-  const error = compiledSchemaIsValid
-    ? compiledSchema.validate(received, options).error
-    : null;
-  const pass = compiledSchemaIsValid && !error;
-
-  const matcherHintOptions: MatcherHintOptions = {
-    isNot: this.isNot,
-    promise: this.promise,
-  };
-  const message = buildMessage(
-    compiledSchemaIsValid,
-    pass,
-    matcherName,
-    received,
-    schema,
-    compiledSchema,
-    error,
-    matcherHintOptions
-  );
+  const name = "toMatchSchema";
+  const options = new Options(submittedOptions);
+  const schema = new Schema(submittedSchema);
+  const result = new Result(received, schema, options);
+  const message = new Message(this, name, result, received, schema);
 
   return {
-    message,
-    pass,
+    message: message.fn,
+    pass: result.pass,
   };
-}
-
-function compileSchema(schema: Joi.SchemaLike) {
-  if (schema === undefined) {
-    return undefined;
-  } else {
-    try {
-      return Joi.compile(schema);
-    } catch {
-      return null;
-    }
-  }
 }

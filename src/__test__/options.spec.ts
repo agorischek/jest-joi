@@ -1,14 +1,14 @@
-import { processOptions } from "../options";
+import { Options } from "../classes";
 
 test("Should set abortEarly without input options", () => {
-  const options = processOptions({});
+  const options = new Options({});
   expect(options).toStrictEqual({
     abortEarly: false,
   });
 });
 
 test("Should add abortEarly with input options when missing", () => {
-  const options = processOptions({
+  const options = new Options({
     debug: true,
   });
   expect(options).toStrictEqual({
@@ -18,7 +18,7 @@ test("Should add abortEarly with input options when missing", () => {
 });
 
 test("Should retain abortEarly as true with input options when present", () => {
-  const options = processOptions({
+  const options = new Options({
     abortEarly: true,
     debug: true,
   });
@@ -29,7 +29,7 @@ test("Should retain abortEarly as true with input options when present", () => {
 });
 
 test("Should retain abortEarly as false with input options when present", () => {
-  const options = processOptions({
+  const options = new Options({
     abortEarly: false,
     debug: true,
   });
