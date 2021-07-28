@@ -1,6 +1,6 @@
 {
   "name": "jest-joi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Jest matcher for Joi schemas",
   "homepage": "https://github.com/agorischek/jest-joi",
   "repository": "https://agorischek@github.com/agorischek/jest-joi.git",
@@ -30,7 +30,7 @@
     "@types/stringify-object": "^3.3.1",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
-    "badge-roll": "0.0.1",
+    "badge-roll": "0.0.3",
     "codecov": "^3.8.3",
     "concurrently": "^6.2.0",
     "depcheck": "^1.4.2",
