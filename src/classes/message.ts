@@ -34,6 +34,10 @@ const invalidSchema = (input: unknown): string => {
 };
 const validSchemaExplanation = (input: string): string => expectedColor(input);
 
+const invalidSchemaExplanation = (input: string): string => {
+  return receivedColor(input);
+};
+
 const errorExplanation = (error: Joi.ValidationError): string => {
   const annotation = error.annotate();
   const parsed = annotation.match(/^".+?" (.+)$/);
@@ -92,6 +96,7 @@ export class Message {
           "",
           "Expected: " +
             validSchemaExplanation("Schema must be a valid Joi schema"),
+          "Receieved: " + invalidSchemaExplanation(schema.error),
           originalSchemaIsSimple
             ? "Schema: " + invalidSchema(schema.submitted)
             : "Schema:",

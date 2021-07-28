@@ -81,6 +81,26 @@ test("Error message when a undefined is submitted for a schema", () => {
   wrap(input, schema);
 });
 
+test("Should throw when the schema contains a nested unsupported data type", () => {
+  const schema = {
+    big: BigInt("999999999999999999"),
+  };
+  const input = { big: 2 };
+  wrap(input, schema);
+});
+
+test("Should throw when the schema contains a multiply nested unsupported data type", () => {
+  const schema = {
+    nest: {
+      moreNest: {
+        sym: Symbol("something"),
+      },
+    },
+  };
+  const input = { big: 2 };
+  wrap(input, schema);
+});
+
 function wrap(input: unknown, schema: unknown, not?: boolean) {
   const wrappedAssertion = not
     ? () => expect(input).not.toMatchSchema(schema)
