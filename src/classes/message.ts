@@ -1,8 +1,9 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
-import { MatcherHintOptions, matcherHint } from "jest-matcher-utils";
-
+import { matcherHint } from "jest-matcher-utils";
 import stringifyObject = require("stringify-object");
+
+import { Result, Schema } from "./";
 
 const receivedColor = chalk.red;
 const expectedColor = chalk.green;
@@ -69,51 +70,56 @@ const stack = (lines: Array<string>): string => {
   return lines.reduce(reducer);
 };
 
-export const buildMessage = (
-  schemaIsValid: boolean,
-  pass: boolean,
-  matcherName: string,
-  received: unknown,
-  originalSchema: Joi.SchemaLike,
-  schema: Joi.Schema,
-  error: Joi.ValidationError,
-  matcherHintOptions: MatcherHintOptions
-): (() => string) => {
-  const hint = buildMatcherHint(matcherName, matcherHintOptions);
-  const receivedIsSimple = isSimple(received);
-  const originalSchemaIsSimple = isSimple(originalSchema);
+export class Message {
+  fn: () => string;
+  text: string;
 
-  const messageLines = !schemaIsValid
-    ? //If the schema isn't valid:
-      [
-        hint,
-        "",
-        "Expected: " +
-          validSchemaExplanation("Schema must be a valid Joi schema"),
-        originalSchemaIsSimple
-          ? "Schema: " + invalidSchema(originalSchema)
-          : "Schema:",
-        originalSchemaIsSimple ? null : invalidSchema(originalSchema),
-      ]
-    : pass // If the input matched the schema but was negated:
-    ? [
-        hint,
-        "",
-        receivedIsSimple ? "Received: " + validReceived(received) : "Received:",
-        receivedIsSimple ? null : validReceived(received),
-        "",
-        "Schema:",
-        expectedSchema(schema),
-      ]
-    : receivedIsSimple // If the input didn't match, and the schema is simple:
-    ? [
-        hint,
-        "",
-        "Received: " + invalidReceived(received),
-        "Expected: " + simpleErrorExplanation(error),
-      ]
-    : // If the input didn't match, and the schema is complex:
-      [hint, "", "Received: ", complexErrorExplanation(error)];
+  constructor(
+    context: jest.MatcherContext,
+    name: string,
+    result: Result,
+    received: unknown,
+    schema: Schema
+  ) {
+    const hint = buildMatcherHint(name, context);
+    const receivedIsSimple = isSimple(received);
+    const originalSchemaIsSimple = isSimple(schema.submitted);
 
-  return print(stack(messageLines));
-};
+    const messageLines = !schema.isValid
+      ? //If the schema isn't valid:
+        [
+          hint,
+          "",
+          "Expected: " +
+            validSchemaExplanation("Schema must be a valid Joi schema"),
+          originalSchemaIsSimple
+            ? "Schema: " + invalidSchema(schema.submitted)
+            : "Schema:",
+          originalSchemaIsSimple ? null : invalidSchema(schema.submitted),
+        ]
+      : result.pass // If the input matched the schema but was negated:
+      ? [
+          hint,
+          "",
+          receivedIsSimple
+            ? "Received: " + validReceived(received)
+            : "Received:",
+          receivedIsSimple ? null : validReceived(received),
+          "",
+          "Schema:",
+          expectedSchema(schema.compiled),
+        ]
+      : receivedIsSimple // If the input didn't match, and the schema is simple:
+      ? [
+          hint,
+          "",
+          "Received: " + invalidReceived(received),
+          "Expected: " + simpleErrorExplanation(result.error),
+        ]
+      : // If the input didn't match, and the schema is complex:
+        [hint, "", "Received: ", complexErrorExplanation(result.error)];
+
+    this.text = stack(messageLines);
+    this.fn = print(this.text);
+  }
+}
