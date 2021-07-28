@@ -81,11 +81,9 @@ test("Error message when a undefined is submitted for a schema", () => {
   wrap(input, schema);
 });
 
-test("Should throw when the schema contains a nested unsupported data type", () => {
-  const schema = {
-    big: BigInt("999999999999999999"),
-  };
-  const input = { big: 2 };
+test("Should throw when the schema contains an unsupported data type", () => {
+  const schema = BigInt("999999999999999999");
+  const input = 2;
   wrap(input, schema);
 });
 
