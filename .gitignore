@@ -3,3 +3,7 @@ node_modules
 coverage
 out-ts
 .DS_Store
+
+# stryker temp files
+.stryker-tmp
+reports

@@ -19,12 +19,15 @@
     "test:coverage": "jest --collectCoverage",
     "test:coverage:upload": "codecov",
     "test:errors": "jest errors",
+    "test:mutate": "stryker run",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && markdownlint-cli2",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx && markdownlint-cli2-fix",
     "start": "ts-node src/index.ts",
     "validate": "concurrently --success all \"npm:lint\" \"npm:format:check\" \"npm:test\" \"npm:badge:check\" \"npm:dep:check\""
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^5.2.2",
+    "@stryker-mutator/jest-runner": "^5.2.2",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.1",
     "@types/stringify-object": "^3.3.1",
