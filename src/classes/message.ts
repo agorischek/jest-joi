@@ -122,7 +122,7 @@ export class Message {
           "Expected: " + simpleErrorExplanation(result.error),
         ]
       : // If the input didn't match, and the schema is complex:
-        [hint, "", "Received: ", complexErrorExplanation(result.error)];
+        [hint, "", "Received:", complexErrorExplanation(result.error)];
 
     this.text = stack(messageLines);
     this.fn = print(this.text);
