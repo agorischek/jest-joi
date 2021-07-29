@@ -1,1 +1,1 @@
-ignores: ["@types/jest", "@types/node", "jest-joi", "prettier-package-json", "markdownlint"]
+ignores: ["@types/jest", "@types/node", "jest-joi", "prettier-package-json", "markdownlint", "@stryker-mutator/jest-runner"]
