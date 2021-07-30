@@ -1,14 +1,14 @@
 import { Hint, Schema } from "../classes";
-import { invalidSchema, invalidSchemaExplanation } from "./shared";
+import { invalidSchema, invalidSchemaExplanation, labels } from "./shared";
 
 export function notSchemaLikeMessage(hint: Hint, schema: Schema): string[] {
   return [
     hint.text,
     "",
-    "Receieved: " + invalidSchemaExplanation(schema.error),
+    labels.received + " " + invalidSchemaExplanation(schema.error),
     schema.input.isSimple
-      ? "Schema: " + invalidSchema(schema.input.value)
-      : "Schema:",
+      ? labels.schema + " " + invalidSchema(schema.input.value)
+      : labels.schema,
     schema.input.isSimple ? null : invalidSchema(schema.input.value),
   ];
 }

@@ -1,6 +1,11 @@
 import { Hint, Result } from "../classes";
-import { complexErrorExplanation } from "./shared";
+import { complexErrorExplanation, labels } from "./shared";
 
 export function complexMisMatchMessage(hint: Hint, result: Result): string[] {
-  return [hint.text, "", "Received:", complexErrorExplanation(result.error)];
+  return [
+    hint.text,
+    "",
+    labels.received,
+    complexErrorExplanation(result.error),
+  ];
 }

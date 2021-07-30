@@ -1,5 +1,5 @@
 import { Hint, Received, Schema } from "../classes";
-import { expectedSchema, validReceived } from "./shared";
+import { expectedSchema, labels, validReceived } from "./shared";
 
 export function negatedMatchMessage(
   hint: Hint,
@@ -10,11 +10,11 @@ export function negatedMatchMessage(
     hint.text,
     "",
     received.isSimple
-      ? "Received: " + validReceived(received.input)
-      : "Received:",
+      ? labels.received + " " + validReceived(received.input)
+      : labels.received,
     received.isSimple ? null : validReceived(received.input),
     "",
-    "Schema:",
+    labels.schema,
     expectedSchema(schema.compiled),
   ];
 }

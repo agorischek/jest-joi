@@ -5,6 +5,13 @@ import stringifyObject = require("stringify-object");
 import { isSimple } from "../utils";
 import { Schema } from "../classes";
 
+export const labels = {
+  error: "Error:",
+  expected: "Expected:",
+  received: "Received:",
+  schema: "Schema:",
+};
+
 export const receivedColor = chalk.red;
 export const expectedColor = chalk.green;
 

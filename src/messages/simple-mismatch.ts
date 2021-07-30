@@ -1,5 +1,5 @@
 import { Hint, Received, Result } from "../classes";
-import { invalidReceived, simpleErrorExplanation } from "./shared";
+import { invalidReceived, labels, simpleErrorExplanation } from "./shared";
 
 export function simpleMismatchMessage(
   hint: Hint,
@@ -9,7 +9,7 @@ export function simpleMismatchMessage(
   return [
     hint.text,
     "",
-    "Received: " + invalidReceived(received.input),
-    "Expected: " + simpleErrorExplanation(result.error),
+    labels.received + " " + invalidReceived(received.input),
+    labels.expected + " " + simpleErrorExplanation(result.error),
   ];
 }
