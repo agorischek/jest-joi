@@ -28,7 +28,7 @@ export const validReceived = (input: unknown): string =>
 export const invalidReceived = (input: unknown): string => receivedColor(input);
 
 export const validSchema = (schema: Schema): string => {
-  return schema.input.isSimple
+  return schema.description.isSimple
     ? receivedColor(schema.compiled.describe())
     : receivedColor(printObject(schema.compiled.describe()));
 };

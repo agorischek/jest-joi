@@ -2,37 +2,38 @@ import { matcherHint } from "jest-matcher-utils";
 
 export class Hint {
   text: string;
-  constructor(
-    matcherName: string,
-    matcherHintOptions: jest.MatcherHintOptions
-  ) {
+  options: jest.MatcherHintOptions;
+  constructor(matcherName: string, context: jest.MatcherContext) {
     switch (matcherName) {
       case "toMatchSchema":
+        this.options = {
+          isNot: context.isNot,
+          promise: context.promise,
+        };
         this.text = matcherHint(
           matcherName,
           "received",
           "schema",
-          matcherHintOptions
+          this.options
         );
         break;
       case "toBeSchema":
-        this.text = matcherHint(
-          matcherName,
-          "received",
-          "",
-          matcherHintOptions
-        );
+        this.options = {
+          isNot: context.isNot,
+          promise: context.promise,
+        };
+        this.text = matcherHint(matcherName, "received", "", this.options);
         break;
       case "toBeSchemaLike":
-        this.text = matcherHint(
-          matcherName,
-          "received",
-          "",
-          matcherHintOptions
-        );
+        this.options = {
+          isNot: context.isNot,
+          promise: context.promise,
+          comment: "Schema-like means accepted by Joi.compile()",
+        };
+        this.text = matcherHint(matcherName, "received", "", this.options);
         break;
       default:
-        this.text = matcherHint(matcherName, null, null, matcherHintOptions);
+        this.text = matcherHint(matcherName, null, null, this.options);
     }
   }
 }

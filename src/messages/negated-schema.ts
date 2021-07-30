@@ -5,7 +5,7 @@ export function negatedSchemaMessage(hint: Hint, schema: Schema): string[] {
   return [
     hint.text,
     "",
-    schema.input.isSimple ? "Schema: " + validSchema(schema) : "Schema:",
-    schema.input.isSimple ? null : validSchema(schema),
+    schema.description.isSimple ? "Schema: " + validSchema(schema) : "Schema:",
+    schema.description.isSimple ? null : validSchema(schema),
   ];
 }

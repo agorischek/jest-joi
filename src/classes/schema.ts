@@ -4,11 +4,15 @@ import { isSimple } from "../utils";
 
 export class Schema {
   input: {
-    value: Joi.SchemaLike;
+    value: unknown;
     isSimple: boolean;
     isCompiled: boolean;
   };
   compiled: Joi.Schema;
+  description: {
+    value: Joi.Description;
+    isSimple: boolean;
+  };
   isValid: boolean;
   error: string;
   constructor(schemaInput: Joi.SchemaLike) {
@@ -19,13 +23,22 @@ export class Schema {
     };
 
     try {
-      this.compiled = Joi.compile(this.input.value);
+      this.compiled = Joi.compile(this.input.value as Joi.SchemaLike);
       this.isValid = true;
       this.error = null;
+      const description = this.compiled.describe();
+      this.description = {
+        value: description,
+        isSimple: isSimple(description),
+      };
     } catch (error) {
       this.compiled = null;
       this.error = buildErrorMessage(error);
       this.isValid = false;
+      this.description = {
+        value: null,
+        isSimple: null,
+      };
     }
   }
 }

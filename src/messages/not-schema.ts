@@ -1,6 +1,14 @@
 import { Hint, Schema } from "../classes";
-import { receivedColor } from "./shared";
+import { invalidSchemaExplanation, invalidSchema } from "./shared";
 
 export function notSchemaMessage(hint: Hint, schema: Schema): string[] {
-  return [hint.text, "", "Received: " + receivedColor(schema.input.value)];
+  return [
+    hint.text,
+    "",
+    "Error: " + invalidSchemaExplanation(schema.error),
+    schema.input.isSimple
+      ? "Received: " + invalidSchema(schema.input.value)
+      : "Received:",
+    schema.input.isSimple ? null : invalidSchema(schema.input.value),
+  ];
 }

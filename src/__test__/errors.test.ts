@@ -113,3 +113,25 @@ describe("toBeSchema()", () => {
     wrapBeSchema(schema);
   });
 });
+
+describe("toBeSchemaLike()", () => {
+  test("Should throw when a simple schema literal isn't valid", () => {
+    const schema = BigInt("1");
+    wrapBeSchemaLike(schema);
+  });
+
+  test("Should throw when a complex schema literal isn't valid", () => {
+    const schema = { big: BigInt("1") };
+    wrapBeSchemaLike(schema);
+  });
+
+  test("Should throw when a valid schema literal isn't expected", () => {
+    const schema = "a";
+    wrapBeSchemaLike(schema, true);
+  });
+
+  test("Should throw when a valid schema isn't expected", () => {
+    const schema = Joi.string();
+    wrapBeSchemaLike(schema, true);
+  });
+});
