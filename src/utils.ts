@@ -11,3 +11,8 @@ export const stack = (lines: Array<string>): string => {
   };
   return lines.reduce(reducer);
 };
+
+export const print =
+  (message: string): (() => string) =>
+  (): string =>
+    message;

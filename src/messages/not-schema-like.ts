@@ -1,15 +1,10 @@
 import { Hint, Schema } from "../classes";
-import {
-  invalidSchema,
-  invalidSchemaExplanation,
-  validSchemaExplanation,
-} from "./shared";
+import { invalidSchema, invalidSchemaExplanation } from "./shared";
 
-export function invalidSchemaMessage(hint: Hint, schema: Schema): string[] {
+export function notSchemaLikeMessage(hint: Hint, schema: Schema): string[] {
   return [
     hint.text,
     "",
-    "Expected: " + validSchemaExplanation("Schema must be a valid Joi schema"),
     "Receieved: " + invalidSchemaExplanation(schema.error),
     schema.input.isSimple
       ? "Schema: " + invalidSchema(schema.input.value)

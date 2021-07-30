@@ -1,5 +1,6 @@
+export * from "./be-message";
 export * from "./hint";
-export * from "./message";
+export * from "./match-message";
 export * from "./options";
 export * from "./received";
 export * from "./result";

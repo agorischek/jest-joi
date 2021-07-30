@@ -3,9 +3,10 @@ import * as chalk from "chalk";
 import stringifyObject = require("stringify-object");
 
 import { isSimple } from "../utils";
+import { Schema } from "../classes";
 
-const receivedColor = chalk.red;
-const expectedColor = chalk.green;
+export const receivedColor = chalk.red;
+export const expectedColor = chalk.green;
 
 export const print =
   (message: string): (() => string) =>
@@ -25,6 +26,12 @@ export const validReceived = (input: unknown): string =>
   receivedColor(printObject(input));
 
 export const invalidReceived = (input: unknown): string => receivedColor(input);
+
+export const validSchema = (schema: Schema): string => {
+  return schema.input.isSimple
+    ? receivedColor(schema.compiled.describe())
+    : receivedColor(printObject(schema.compiled.describe()));
+};
 
 export const invalidSchema = (input: unknown): string => {
   return isSimple(input)

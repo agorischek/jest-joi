@@ -3,17 +3,23 @@ import * as Joi from "joi";
 import { isSimple } from "../utils";
 
 export class Schema {
-  submitted: Joi.SchemaLike;
-  submittedIsSimple: boolean;
+  input: {
+    value: Joi.SchemaLike;
+    isSimple: boolean;
+    isCompiled: boolean;
+  };
   compiled: Joi.Schema;
   isValid: boolean;
   error: string;
-  constructor(submittedSchema: Joi.SchemaLike) {
-    this.submitted = submittedSchema;
-    this.submittedIsSimple = isSimple(this.submitted);
+  constructor(schemaInput: Joi.SchemaLike) {
+    this.input = {
+      value: schemaInput,
+      isSimple: isSimple(schemaInput),
+      isCompiled: Joi.isSchema(schemaInput),
+    };
 
     try {
-      this.compiled = Joi.compile(this.submitted);
+      this.compiled = Joi.compile(this.input.value);
       this.isValid = true;
       this.error = null;
     } catch (error) {

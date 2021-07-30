@@ -1,5 +1,5 @@
-import { Hint, Received, Result, Schema } from "./";
-import { stack } from "../utils";
+import { Hint, Received, Result, Schema } from ".";
+import { print, stack } from "../utils";
 import {
   complexMisMatchMessage,
   simpleMismatchMessage,
@@ -7,12 +7,7 @@ import {
   negatedMatchMessage,
 } from "../messages";
 
-const print =
-  (message: string): (() => string) =>
-  (): string =>
-    message;
-
-export class Message {
+export class MatchMessage {
   fn: () => string;
   text: string;
 

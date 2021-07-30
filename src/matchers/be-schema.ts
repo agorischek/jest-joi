@@ -1,6 +1,6 @@
 import * as Joi from "joi";
 
-import { Schema } from "../classes";
+import { BeMessage, Schema } from "../classes";
 
 export function toBeSchema(
   this: jest.MatcherContext,
@@ -10,10 +10,10 @@ export function toBeSchema(
   const schema = new Schema(received);
 
   // const message = new Message(this, name, result, received, schema);
-  const message = () => "hmmm" + name;
+  const message = new BeMessage(this, name, schema);
 
   return {
-    message: message,
-    pass: schema.isValid,
+    message: message.fn,
+    pass: schema.input.isCompiled,
   };
 }

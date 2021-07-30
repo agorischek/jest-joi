@@ -9,21 +9,21 @@ test("Error message when input doesn't match simple string schema", () => {
   const schema = Joi.string();
   const input = 3;
 
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Error message when input doesn't match simple number schema", () => {
   const schema = Joi.number();
   const input = "a";
 
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Error message when input doesn't match simple boolean schema", () => {
   const schema = Joi.boolean();
   const input = 1;
 
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Error message when input doesn't match object schema with one property", () => {
@@ -34,7 +34,7 @@ test("Error message when input doesn't match object schema with one property", (
     a: false,
   };
 
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Error message when input doesn't match object schema with multiple properties", () => {
@@ -49,14 +49,14 @@ test("Error message when input doesn't match object schema with multiple propert
     c: 1,
   };
 
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Error message when input matches string schema and is negated", () => {
   const schema = Joi.string();
   const input = "a";
 
-  wrap(input, schema, true);
+  wrapMatchSchema(input, schema, true);
 });
 
 test("Error message when input matches object schema and is negated", () => {
@@ -71,20 +71,20 @@ test("Error message when input matches object schema and is negated", () => {
     c: false,
   };
 
-  wrap(input, schema, true);
+  wrapMatchSchema(input, schema, true);
 });
 
 test("Error message when a undefined is submitted for a schema", () => {
   const schema: string = undefined;
   const input = 1;
 
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Should throw when the schema contains an unsupported data type", () => {
   const schema = BigInt("999999999999999999");
   const input = 2;
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
 test("Should throw when the schema contains a multiply nested unsupported data type", () => {
@@ -96,13 +96,41 @@ test("Should throw when the schema contains a multiply nested unsupported data t
     },
   };
   const input = { big: 2 };
-  wrap(input, schema);
+  wrapMatchSchema(input, schema);
 });
 
-function wrap(input: unknown, schema: unknown, not?: boolean) {
+test("Should throw when a valid schema isn't expected", () => {
+  const schema = Joi.string();
+  wrapBeSchema(schema, true);
+});
+
+test("Should throw when a schema isn't valid", () => {
+  const schema = 5;
+  wrapBeSchema(schema);
+});
+
+function wrapMatchSchema(input: unknown, schema: unknown, not?: boolean) {
   const wrappedAssertion = not
     ? () => expect(input).not.toMatchSchema(schema)
     : () => expect(input).toMatchSchema(schema);
+  return manualErrorInspection
+    ? wrappedAssertion()
+    : expect(wrappedAssertion).toThrow();
+}
+
+function wrapBeSchema(schema: unknown, not?: boolean) {
+  const wrappedAssertion = not
+    ? () => expect(schema).not.toBeSchema()
+    : () => expect(schema).toBeSchema();
+  return manualErrorInspection
+    ? wrappedAssertion()
+    : expect(wrappedAssertion).toThrow();
+}
+
+function wrapBeSchemaLike(schema: unknown, not?: boolean) {
+  const wrappedAssertion = not
+    ? () => expect(schema).not.toBeSchemaLike()
+    : () => expect(schema).toBeSchemaLike();
   return manualErrorInspection
     ? wrappedAssertion()
     : expect(wrappedAssertion).toThrow();
