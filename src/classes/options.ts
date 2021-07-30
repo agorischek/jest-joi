@@ -1,8 +1,8 @@
 import * as Joi from "joi";
 
 export class Options implements Joi.ValidationOptions {
-  constructor(submittedOptions: Joi.ValidationOptions) {
-    const options = submittedOptions === undefined ? {} : submittedOptions;
+  constructor(optionsInput: Joi.ValidationOptions) {
+    const options = optionsInput === undefined ? {} : optionsInput;
     const abortEarlyIsSet = Object.prototype.hasOwnProperty.call(
       options,
       "abortEarly"

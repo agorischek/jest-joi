@@ -1,21 +1,37 @@
 import * as Joi from "joi";
 
+import { isSimple } from "../utils";
+
 export class Schema {
-  submitted: Joi.SchemaLike;
+  input: {
+    value: unknown;
+    isSimple: boolean;
+    isCompiled: boolean;
+  };
   compiled: Joi.Schema;
+  description: Joi.Description;
   isValid: boolean;
   error: string;
-  constructor(submittedSchema: Joi.SchemaLike) {
-    this.submitted = submittedSchema;
+  constructor(schemaInput: Joi.SchemaLike) {
+    this.input = {
+      value: schemaInput,
+      isSimple: isSimple(schemaInput),
+      isCompiled: Joi.isSchema(schemaInput),
+    };
 
     try {
-      this.compiled = Joi.compile(this.submitted);
+      this.compiled = Joi.compile(this.input.value as Joi.SchemaLike);
       this.isValid = true;
       this.error = null;
+      this.description = this.compiled.describe();
     } catch (error) {
       this.compiled = null;
       this.error = buildErrorMessage(error);
       this.isValid = false;
+      this.description = {
+        value: null,
+        isSimple: null,
+      };
     }
   }
 }

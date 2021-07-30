@@ -3,7 +3,11 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   setupFilesAfterEnv: ["./jest.setup.js"],
   testPathIgnorePatterns: ["dist", "out-ts"],
-  coveragePathIgnorePatterns: ["demo.ts", "node_modules"],
+  coveragePathIgnorePatterns: [
+    "demo.ts",
+    "src/__test__/utils.ts",
+    "node_modules",
+  ],
   coverageThreshold: {
     global: {
       branches: 90,

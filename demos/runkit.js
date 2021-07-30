@@ -13,13 +13,13 @@ const Joi = require("joi");
 // This one will pass! 🎉
 test("A string should match its schema", () => {
   const schema = Joi.string();
-  const input = "Hello!";
-  expect(input).toMatchSchema(schema);
+  const value = "Hello!";
+  expect(value).toMatchSchema(schema);
 });
 
 // But this one will fail 😔
 test("An object should match its schema", () => {
   const schema = { a: Joi.string() };
-  const input = { a: false };
-  expect(input).toMatchSchema(schema);
+  const value = { a: false };
+  expect(value).toMatchSchema(schema);
 });

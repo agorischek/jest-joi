@@ -1,5 +1,6 @@
 import * as Joi from "joi";
-import stripAnsi = require("strip-ansi");
+
+import { getMessage } from "./utils";
 
 test("Output for simple test", () => {
   const assertion = () => expect(2).toMatchSchema(Joi.string());
@@ -53,11 +54,3 @@ Received: 1
 Expected: Received must be [true]
 `);
 });
-
-function getMessage(assertion: () => unknown) {
-  try {
-    assertion();
-  } catch (error) {
-    return "\n" + stripAnsi(error.matcherResult.message) + "\n";
-  }
-}

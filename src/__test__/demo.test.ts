@@ -1,6 +1,6 @@
 import * as Joi from "joi";
 
-import { demo } from "../";
+import { demo } from "..";
 
 const { test: demoTest, expect: demoExpect } = demo("test");
 

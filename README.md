@@ -3,7 +3,7 @@
 
 # Jest Joi
 
-[Matcher](https://jestjs.io/docs/using-matchers) for validating input against
+[Matcher](https://jestjs.io/docs/using-matchers) for validating values against
 [Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome
 error messages and [TypeScript](https://www.typescriptlang.org) support
 
@@ -49,33 +49,33 @@ property.
 ## Usage
 
 Just call the `.toMatchSchema()` matcher with the
-[Joi schema](https://joi.dev/api/) to validate the input against:
+[Joi schema](https://joi.dev/api/) to validate the value against:
 
 ```js
-expect(input).toMatchSchema(schema);
+expect(value).toMatchSchema(schema);
 ```
 
 [Options](https://joi.dev/api/#anyvalidatevalue-options) may be passed as an
 optional second parameter:
 
 ```js
-expect(input).toMatchSchema(schema, options);
+expect(value).toMatchSchema(schema, options);
 ```
 
-When the input doesn't match the schema, Jest Joi will provide detailed error
+When the value doesn't match the schema, Jest Joi will provide detailed error
 messages:
 
 ```js
 // Simple mismatches describe the error:
 
-test("Input should match schema", () => {
+test("Value should match schema", () => {
   const schema = Joi.string();
-  const input = 3;
-  expect(input).toMatchSchema(schema);
+  const value = 3;
+  expect(value).toMatchSchema(schema);
 });
 
 // [FAIL]  src/schema.spec.ts
-//  ✕ Input should match schema
+//  ✕ Value should match schema
 //
 //    expect(received).toMatchSchema(schema)
 //
@@ -84,20 +84,20 @@ test("Input should match schema", () => {
 ```
 
 ```ts
-// Complex mismatches annotate the input:
+// Complex mismatches annotate the value:
 
-test("Input should match schema", () => {
+test("Value should match schema", () => {
   const schema = Joi.object({
     a: Joi.string(),
   });
-  const input = {
+  const value = {
     a: false,
   };
-  expect(input).toMatchSchema(schema);
+  expect(value).toMatchSchema(schema);
 });
 
 // [FAIL]  src/schema.spec.ts
-//  ✕ Input should match schema
+//  ✕ Value should match schema
 //
 //    expect(received).toMatchSchema(schema)
 //
@@ -112,14 +112,14 @@ test("Input should match schema", () => {
 ```ts
 // Negated matches display the schema:
 
-test("Input should not match schema", () => {
+test("Value should not match schema", () => {
   const schema = Joi.string();
-  const input = "a";
-  expect(input).not.toMatchSchema(schema);
+  const value = "a";
+  expect(value).not.toMatchSchema(schema);
 });
 
 // [FAIL]  src/schema.spec.ts
-//  ✕ Input should not match schema
+//  ✕ Value should not match schema
 //
 //    expect(received).not.toMatchSchema(schema)
 //
@@ -134,19 +134,19 @@ test("Input should not match schema", () => {
 ```ts
 // Options can be passed as a second argument:
 
-test("Input should match schema with options", () => {
+test("Value should match schema with options", () => {
   const schema = Joi.object({});
-  const input = {
+  const value = {
     b: true,
   };
   const options = {
     allowUnknown: false,
   };
-  expect(input).toMatchSchema(schema, options);
+  expect(value).toMatchSchema(schema, options);
 });
 
 // FAIL  src/schema.spec.ts
-//  ✕ Input should match schema with options (7ms)
+//  ✕ Value should match schema with options (7ms)
 //
 //    expect(received).toMatchSchema(schema)
 //
@@ -156,4 +156,37 @@ test("Input should match schema with options", () => {
 //    }
 //
 //    [1] "b" is not allowed
+```
+
+## Matchers
+
+Jest Joi includes matchers both for validating values against a schema, and for
+validating schemas themselves.
+
+### `toMatchSchema()`
+
+Pass a value to `expect()` to validate against the `schema`. The `schema` may be
+either a Joi schema object or a schema literal (which will be compiled using
+[`Joi.compile()`](https://joi.dev/api/?v=17.4.1#compileschema-options)).
+
+```js
+expect(value).toMatchSchema(schema, options?);
+```
+
+### `toBeSchema()`
+
+Pass a value to `expect()` to validate whether it's a Joi schema.
+
+```js
+expect(schema).toBeSchema();
+```
+
+### `toBeSchemaLike()`
+
+Pass a value to `expect()` to validate whether it's a Joi schema or a schema
+literal (a value that can be compiled using
+[`Joi.compile()`](https://joi.dev/api/?v=17.4.1#compileschema-options)).
+
+```js
+expect(schema).toBeSchemaLike();
 ```
