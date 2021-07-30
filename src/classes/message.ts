@@ -1,9 +1,9 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
-import { matcherHint } from "jest-matcher-utils";
 import stringifyObject = require("stringify-object");
 
-import { Result, Schema } from "./";
+import { Hint, Received, Result, Schema } from "./";
+import { isSimple, stack } from "../utils";
 
 const receivedColor = chalk.red;
 const expectedColor = chalk.green;
@@ -53,25 +53,44 @@ const complexErrorExplanation = (error: Joi.ValidationError): string => {
   return errorExplanation(error);
 };
 
-const buildMatcherHint = (
-  matcherName: string,
-  matcherHintOptions: jest.MatcherHintOptions
-) => {
-  return matcherHint(matcherName, "received", "schema", matcherHintOptions);
-};
-
-const isSimple = (input: unknown) =>
-  !(typeof input === "object" && input !== null);
-
-const stack = (lines: Array<string>): string => {
-  const reducer = (accumulator: string, value: string) => {
-    return value === ""
-      ? accumulator + "\n"
-      : value === null
-      ? accumulator
-      : accumulator + "\n" + value;
-  };
-  return lines.reduce(reducer);
+const messages = {
+  invalidSchema: (hint: Hint, schema: Schema) => {
+    return [
+      hint.text,
+      "",
+      "Expected: " +
+        validSchemaExplanation("Schema must be a valid Joi schema"),
+      "Receieved: " + invalidSchemaExplanation(schema.error),
+      schema.submittedIsSimple
+        ? "Schema: " + invalidSchema(schema.submitted)
+        : "Schema:",
+      schema.submittedIsSimple ? null : invalidSchema(schema.submitted),
+    ];
+  },
+  negatedMatch: (hint: Hint, schema: Schema, received: Received) => {
+    return [
+      hint.text,
+      "",
+      received.isSimple
+        ? "Received: " + validReceived(received.input)
+        : "Received:",
+      received.isSimple ? null : validReceived(received.input),
+      "",
+      "Schema:",
+      expectedSchema(schema.compiled),
+    ];
+  },
+  simpleMismatch: (hint: Hint, received: Received, result: Result) => {
+    return [
+      hint.text,
+      "",
+      "Received: " + invalidReceived(received.input),
+      "Expected: " + simpleErrorExplanation(result.error),
+    ];
+  },
+  complexMisMatch: (hint: Hint, result: Result) => {
+    return [hint.text, "", "Received:", complexErrorExplanation(result.error)];
+  },
 };
 
 export class Message {
@@ -82,47 +101,18 @@ export class Message {
     context: jest.MatcherContext,
     name: string,
     result: Result,
-    received: unknown,
+    received: Received,
     schema: Schema
   ) {
-    const hint = buildMatcherHint(name, context);
-    const receivedIsSimple = isSimple(received);
-    const originalSchemaIsSimple = isSimple(schema.submitted);
+    const hint = new Hint(name, context);
 
-    const messageLines = !schema.isValid
-      ? //If the schema isn't valid:
-        [
-          hint,
-          "",
-          "Expected: " +
-            validSchemaExplanation("Schema must be a valid Joi schema"),
-          "Receieved: " + invalidSchemaExplanation(schema.error),
-          originalSchemaIsSimple
-            ? "Schema: " + invalidSchema(schema.submitted)
-            : "Schema:",
-          originalSchemaIsSimple ? null : invalidSchema(schema.submitted),
-        ]
-      : result.pass // If the input matched the schema but was negated:
-      ? [
-          hint,
-          "",
-          receivedIsSimple
-            ? "Received: " + validReceived(received)
-            : "Received:",
-          receivedIsSimple ? null : validReceived(received),
-          "",
-          "Schema:",
-          expectedSchema(schema.compiled),
-        ]
-      : receivedIsSimple // If the input didn't match, and the schema is simple:
-      ? [
-          hint,
-          "",
-          "Received: " + invalidReceived(received),
-          "Expected: " + simpleErrorExplanation(result.error),
-        ]
-      : // If the input didn't match, and the schema is complex:
-        [hint, "", "Received:", complexErrorExplanation(result.error)];
+    const messageLines: string[] = !schema.isValid
+      ? messages.invalidSchema(hint, schema)
+      : result.pass
+      ? messages.negatedMatch(hint, schema, received)
+      : received.isSimple
+      ? messages.simpleMismatch(hint, received, result)
+      : messages.complexMisMatch(hint, result);
 
     this.text = stack(messageLines);
     this.fn = print(this.text);

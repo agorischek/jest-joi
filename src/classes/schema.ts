@@ -1,12 +1,16 @@
 import * as Joi from "joi";
 
+import { isSimple } from "../utils";
+
 export class Schema {
   submitted: Joi.SchemaLike;
+  submittedIsSimple: boolean;
   compiled: Joi.Schema;
   isValid: boolean;
   error: string;
   constructor(submittedSchema: Joi.SchemaLike) {
     this.submitted = submittedSchema;
+    this.submittedIsSimple = isSimple(this.submitted);
 
     try {
       this.compiled = Joi.compile(this.submitted);

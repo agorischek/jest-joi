@@ -1,16 +1,18 @@
 import * as Joi from "joi";
 
-import { Message, Options, Schema, Result } from "./classes";
+import { Message, Options, Schema, Received, Result } from "../classes";
+import {} from "../classes/received";
 
 export function toMatchSchema(
   this: jest.MatcherContext,
-  received: unknown,
-  submittedSchema: Joi.Schema,
-  submittedOptions: Joi.ValidationOptions
+  receivedInput: unknown,
+  schemaInput: Joi.Schema,
+  optionsInput: Joi.ValidationOptions
 ): jest.CustomMatcherResult {
   const name = "toMatchSchema";
-  const options = new Options(submittedOptions);
-  const schema = new Schema(submittedSchema);
+  const received = new Received(receivedInput);
+  const options = new Options(optionsInput);
+  const schema = new Schema(schemaInput);
   const result = new Result(received, schema, options);
   const message = new Message(this, name, result, received, schema);
 
