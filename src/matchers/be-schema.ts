@@ -8,8 +8,6 @@ export function toBeSchema(
 ): jest.CustomMatcherResult {
   const name = "toBeSchema";
   const schema = new Schema(received);
-
-  // const message = new Message(this, name, result, received, schema);
   const message = new BeMessage(this, name, schema);
 
   return {
