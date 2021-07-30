@@ -5,7 +5,9 @@ export function notSchemaMessage(hint: Hint, schema: Schema): string[] {
   return [
     hint.text,
     "",
-    labels.expected + " " + invalidSchemaExplanation(schema.error),
+    schema.error
+      ? labels.error + " " + invalidSchemaExplanation(schema.error)
+      : null,
     schema.input.isSimple
       ? labels.received + " " + invalidSchema(schema.input.value)
       : labels.received,
