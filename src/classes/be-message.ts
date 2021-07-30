@@ -1,7 +1,6 @@
 import { Hint, Schema } from ".";
-import { print, stack } from "../utils";
-import { notSchemaMessage } from "../messages";
-import { negatedSchemaMessage } from "../messages/negated-schema";
+import { negatedSchemaMessage, notSchemaMessage } from "../messages";
+import { print, stack } from "../messages/shared";
 
 export class BeMessage {
   fn: () => string;

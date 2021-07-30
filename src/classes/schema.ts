@@ -9,10 +9,7 @@ export class Schema {
     isCompiled: boolean;
   };
   compiled: Joi.Schema;
-  description: {
-    value: Joi.Description;
-    isSimple: boolean;
-  };
+  description: Joi.Description;
   isValid: boolean;
   error: string;
   constructor(schemaInput: Joi.SchemaLike) {
@@ -26,11 +23,7 @@ export class Schema {
       this.compiled = Joi.compile(this.input.value as Joi.SchemaLike);
       this.isValid = true;
       this.error = null;
-      const description = this.compiled.describe();
-      this.description = {
-        value: description,
-        isSimple: isSimple(description),
-      };
+      this.description = this.compiled.describe();
     } catch (error) {
       this.compiled = null;
       this.error = buildErrorMessage(error);

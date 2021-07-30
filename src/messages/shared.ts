@@ -20,6 +20,17 @@ export const print =
   (): string =>
     message;
 
+export const stack = (lines: Array<string>): string => {
+  const reducer = (accumulator: string, value: string) => {
+    return value === ""
+      ? accumulator + "\n"
+      : value === null
+      ? accumulator
+      : accumulator + "\n" + value;
+  };
+  return lines.reduce(reducer);
+};
+
 export const printObject = (object: unknown): string =>
   stringifyObject(object, {
     indent: "  ",
@@ -35,9 +46,7 @@ export const validReceived = (input: unknown): string =>
 export const invalidReceived = (input: unknown): string => receivedColor(input);
 
 export const validSchema = (schema: Schema): string => {
-  return schema.description.isSimple
-    ? receivedColor(schema.compiled.describe())
-    : receivedColor(printObject(schema.compiled.describe()));
+  return receivedColor(printObject(schema.description));
 };
 
 export const invalidSchema = (input: unknown): string => {

@@ -1,11 +1,11 @@
 import { Hint, Received, Result, Schema } from ".";
-import { print, stack } from "../utils";
 import {
   complexMisMatchMessage,
   simpleMismatchMessage,
   invalidSchemaMessage,
   negatedMatchMessage,
 } from "../messages";
+import { print, stack } from "../messages/shared";
 
 export class MatchMessage {
   fn: () => string;

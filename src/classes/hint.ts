@@ -32,8 +32,6 @@ export class Hint {
         };
         this.text = matcherHint(matcherName, "received", "", this.options);
         break;
-      default:
-        this.text = matcherHint(matcherName, null, null, this.options);
     }
   }
 }
