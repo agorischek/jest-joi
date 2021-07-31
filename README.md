@@ -37,7 +37,7 @@ expect.extend(matchers);
 
 ```js
 // jest.config.ts
-module.exports = {
+export default {
   setupFilesAfterEnv: ["./jest.setup.ts"],
 };
 ```
