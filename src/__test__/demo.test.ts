@@ -9,20 +9,39 @@ test("The demo test runner executes", () => {
   expect(demoTestCase).not.toThrow();
 });
 
-test("The demo test runner executes a passing test case", () => {
+test("The demo test runner executes passing test cases", () => {
   const demoExpectStatement = () => demoExpect("a").toMatchSchema(Joi.string());
   expect(demoExpectStatement).not.toThrow();
+
+  const demoExpectStatement2 = () => demoExpect(Joi.string()).toBeSchema();
+  expect(demoExpectStatement2).not.toThrow();
+
+  const demoExpectStatement3 = () => demoExpect("a").toBeSchemaLike();
+  expect(demoExpectStatement3).not.toThrow();
 });
 
-test("The demo test runner executes a passing negated test case", () => {
+test("The demo test runner executes passing negated test cases", () => {
   const demoExpectStatement = () =>
     demoExpect(1).not.toMatchSchema(Joi.string());
   expect(demoExpectStatement).not.toThrow();
+
+  const demoExpectStatement2 = () => demoExpect(1).not.toBeSchema();
+  expect(demoExpectStatement2).not.toThrow();
+
+  const demoExpectStatement3 = () =>
+    demoExpect(BigInt("1")).not.toBeSchemaLike();
+  expect(demoExpectStatement3).not.toThrow();
 });
 
-test("The demo test runner executes a failing test case", () => {
+test("The demo test runner executes failing test cases", () => {
   const demoExpectStatement = () => demoExpect(1).toMatchSchema(Joi.string());
   expect(demoExpectStatement).not.toThrow();
+
+  const demoExpectStatement2 = () => demoExpect(1).toBeSchema();
+  expect(demoExpectStatement2).not.toThrow();
+
+  const demoExpectStatement3 = () => demoExpect(BigInt("1")).toBeSchemaLike();
+  expect(demoExpectStatement3).not.toThrow();
 });
 
 test("The demo test runner exits async test calls", () => {
