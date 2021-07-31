@@ -8,7 +8,6 @@ export function toBeSchemaLike(
 ): jest.CustomMatcherResult {
   const name = "toBeSchemaLike";
   const schema = new Schema(received);
-
   const message = new BeLikeMessage(this, name, schema);
 
   return {
