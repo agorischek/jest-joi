@@ -7,7 +7,7 @@ badges:
   - badge-roll
 
 settings:
-  position: below-lead
+  position: current
   separator: newline
 
 about:
