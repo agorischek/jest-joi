@@ -146,7 +146,7 @@ export function demo(envInput?: string): { expect: Expect; test: Test } {
   logBreak();
   log(
     chalk.bold.yellow.inverse(
-      "This is a demo environment for Jest Joi. Do not call `.demo()` in your actual project. See npmjs.com/package/jest-joi for setup instructions."
+      "This is a demo environment for Jest Joi. Do not call `.demo()` in your actual project."
     )
   );
   logBreak();

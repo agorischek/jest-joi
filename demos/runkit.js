@@ -2,7 +2,7 @@
 features of Jest. For full functionality, install `jest-joi` locally in
 your project. See npmjs.com/package/jest-joi for setup instructions. */
 
-// The folloing line is only for this demo — don't include it in your project.
+// The following line is only for this demo — don't include it in your project.
 const { test, expect } = require("jest-joi").demo("runkit");
 
 // Hit "run" below to see some results!
@@ -23,3 +23,5 @@ test("An object should match its schema", () => {
   const value = { a: false };
   expect(value).toMatchSchema(schema);
 });
+
+("See npmjs.com/package/jest-joi for more examples and setup instructions.");
