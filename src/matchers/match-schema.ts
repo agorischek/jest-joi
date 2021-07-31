@@ -6,7 +6,7 @@ import {} from "../classes/received";
 export function toMatchSchema(
   this: jest.MatcherContext,
   receivedInput: unknown,
-  schemaInput: Joi.Schema,
+  schemaInput: unknown,
   optionsInput: Joi.ValidationOptions
 ): jest.CustomMatcherResult {
   const name = "toMatchSchema";

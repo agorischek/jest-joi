@@ -12,7 +12,7 @@ export class Schema {
   description: Joi.Description;
   isValid: boolean;
   error: string;
-  constructor(schemaInput: Joi.SchemaLike) {
+  constructor(schemaInput: unknown) {
     this.input = {
       value: schemaInput,
       isSimple: isSimple(schemaInput),
