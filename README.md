@@ -30,6 +30,7 @@ npm i -D jest-joi
 
 ```ts
 // jest.setup.ts
+// Note: Make sure this is within the scope of your TypeScript config!
 import { toMatchSchema, toBeSchema, toBeSchemaLike } from "jest-joi";
 expect.extend({ toMatchSchema, toBeSchema, toBeSchemaLike });
 ```
