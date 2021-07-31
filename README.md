@@ -3,7 +3,9 @@
 
 # Jest Joi
 
-[Matcher](https://jestjs.io/docs/using-matchers) for validating values against
+`expect(value).toMatchSchema(schema);`
+
+[Matchers](https://jestjs.io/docs/using-matchers) for validating values against
 [Joi](https://joi.dev) schemas in [Jest](https://jestjs.io) tests, with awesome
 error messages and [TypeScript](https://www.typescriptlang.org) support
 
@@ -18,21 +20,34 @@ For a quick demo, head over to [RunKit](https://npm.runkit.com/jest-joi)!
 
 ## Setup
 
-First, install:
-
 ```sh
 npm i -D jest-joi
 ```
 
-Then, extend:
+### TypeScript
+
+(e.g. via [ts-jest](https://www.npmjs.com/package/ts-jest))
+
+```ts
+// jest.setup.ts
+import { toMatchSchema, toBeSchema, toBeSchemaLike } from "jest-joi";
+expect.extend({ toMatchSchema, toBeSchema, toBeSchemaLike });
+```
+
+```js
+// jest.config.ts
+module.exports = {
+  setupFilesAfterEnv: ["./jest.setup.ts"],
+};
+```
+
+### JavaScript
 
 ```js
 // jest.setup.js
 const jestJoi = require("jest-joi");
 expect.extend(jestJoi);
 ```
-
-Finally, register:
 
 ```js
 // jest.config.js
