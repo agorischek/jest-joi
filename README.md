@@ -31,8 +31,8 @@ npm i -D jest-joi
 ```ts
 // jest.setup.ts
 // Note: Make sure this is within the scope of your TypeScript config!
-import { toMatchSchema, toBeSchema, toBeSchemaLike } from "jest-joi";
-expect.extend({ toMatchSchema, toBeSchema, toBeSchemaLike });
+import { matchers } from "jest-joi";
+expect.extend(matchers);
 ```
 
 ```js
@@ -47,7 +47,7 @@ module.exports = {
 ```js
 // jest.setup.js
 const jestJoi = require("jest-joi");
-expect.extend(jestJoi);
+expect.extend(jestJoi.matchers);
 ```
 
 ```js

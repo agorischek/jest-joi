@@ -1,4 +1,4 @@
-import * as jestJoi from "..";
+import { matchers } from "..";
 import * as chalk from "chalk";
 import Joi = require("joi");
 
@@ -66,7 +66,7 @@ function makeMatchSchemaMatcher(
     schema: unknown,
     options?: Joi.ValidationOptions
   ) {
-    const result = jestJoi.toMatchSchema.call(
+    const result = matchers.toMatchSchema.call(
       context,
       received,
       schema,
@@ -81,7 +81,7 @@ function makeBeSchemaMatcher(
   received: unknown
 ): BeSchemaMatcher {
   return function toBeSchema() {
-    const result = jestJoi.toBeSchema.call(context, received);
+    const result = matchers.toBeSchema.call(context, received);
     assessResult(result, context);
   };
 }
@@ -91,7 +91,7 @@ function makeBeSchemaLikeMatcher(
   received: unknown
 ): BeSchemaLikeMatcher {
   return function toBeSchemaLike() {
-    const result = jestJoi.toBeSchemaLike.call(context, received);
+    const result = matchers.toBeSchemaLike.call(context, received);
     assessResult(result, context);
   };
 }
