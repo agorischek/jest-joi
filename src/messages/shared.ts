@@ -12,12 +12,9 @@ export const labels = {
   schema: "Schema:",
 };
 
-export const receivedColor = chalk.red;
-export const expectedColor = chalk.green;
-
 export const colors = {
-  expected: expectedColor,
-  received: receivedColor,
+  expected: chalk.green,
+  received: chalk.red,
 };
 
 export const print =
@@ -27,11 +24,7 @@ export const print =
 
 export const stack = (lines: Array<string>): string => {
   const reducer = (accumulator: string, value: string) => {
-    return value === ""
-      ? accumulator + "\n"
-      : value === null
-      ? accumulator
-      : accumulator + "\n" + value;
+    return value === "" ? accumulator + "\n" : accumulator + "\n" + value;
   };
   return lines.reduce(reducer);
 };

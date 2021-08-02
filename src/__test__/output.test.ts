@@ -53,19 +53,32 @@ describe("toMatchSchema()", () => {
   });
 
   test("Output for a complex negated test", () => {
-    const value = { a: 2 };
-    const schema = { a: Joi.number() };
+    const value = { a: { b: { c: 2 } } };
+    const schema = { a: { b: { c: Joi.number() } } };
     const assertion = () => expect(value).not.toMatchSchema(schema);
     const message = getMessage(assertion);
     expect(message).toBe(
       trim(`
         expect(received).not.toMatchSchema(schema)
 
-        Received: { "a": 2 }
+        Received:
+        {
+          "a": { "b": { "c": 2 } }
+        }
         Schema:
         {
           "type": "object",
-          "keys": { "a": { "type": "number" } }
+          "keys": {
+            "a": {
+              "type": "object",
+              "keys": {
+                "b": {
+                  "type": "object",
+                  "keys": { "c": { "type": "number" } }
+                }
+              }
+            }
+          }
         }
       `)
     );
