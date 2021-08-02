@@ -1,8 +1,7 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
-const stringify = require("@aitodotai/json-stringify-pretty-compact");
 
-import { isSimple } from "../utils";
+import { isSimple, stringifyObject } from "../utils";
 import { Schema } from "../classes";
 
 export const labels = {
@@ -31,8 +30,13 @@ export const stack = (lines: Array<string>): string => {
   return lines.reduce(reducer);
 };
 
-export const printObject = (object: unknown): string =>
-  stringify(object, { objectMargins: true, maxNesting: 2 });
+export const printObject = (object: unknown): string => {
+  try {
+    return stringifyObject(object, { objectMargins: true, maxNesting: 2 });
+  } catch (error) {
+    return "(Unserializable)";
+  }
+};
 
 export const expectedSchema = (schema: Joi.Schema): string =>
   expectedColor(printObject(schema.describe()));
@@ -51,6 +55,7 @@ export const invalidSchema = (input: unknown): string => {
     ? receivedColor(input)
     : receivedColor(printObject(input));
 };
+
 export const validSchemaExplanation = (input: string): string =>
   expectedColor(input);
 

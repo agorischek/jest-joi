@@ -1,1 +1,2 @@
-export * from "./utils";
+export * from "./is-simple";
+export * from "./stringify-object";

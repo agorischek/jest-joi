@@ -1,6 +1,6 @@
 import * as Joi from "joi";
 
-import { getMessage } from "./utils";
+import { getMessage, trim } from "./utils";
 
 describe("toMatchSchema()", () => {
   test("Output for simple test", () => {
@@ -8,12 +8,14 @@ describe("toMatchSchema()", () => {
     const schema = Joi.string();
     const assertion = () => expect(value).toMatchSchema(schema);
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).toMatchSchema(schema)
+    expect(message).toBe(
+      trim(`
+        expect(received).toMatchSchema(schema)
 
-Received: 2
-Expected: Received must be a string
-`);
+        Received: 2
+        Expected: Received must be a string
+     `)
+    );
   });
 
   test("Output for simple negated test", () => {
@@ -21,14 +23,16 @@ Expected: Received must be a string
     const schema = Joi.string();
     const assertion = () => expect(value).not.toMatchSchema(schema);
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).not.toMatchSchema(schema)
+    expect(message).toBe(
+      trim(`
+        expect(received).not.toMatchSchema(schema)
 
-Received: "a"
+        Received: "a"
 
-Schema:
-{ "type": "string" }
-`);
+        Schema:
+        { "type": "string" }
+      `)
+    );
   });
 
   test("Output for a complex test", () => {
@@ -36,16 +40,18 @@ Schema:
     const schema = { a: Joi.number() };
     const assertion = () => expect(value).toMatchSchema(schema);
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).toMatchSchema(schema)
+    expect(message).toBe(
+      trim(`
+        expect(received).toMatchSchema(schema)
 
-Received:
-{
-  "a" [1]: true
-}
+        Received:
+        {
+          "a" [1]: true
+        }
 
-[1] "a" must be a number
-`);
+        [1] "a" must be a number
+      `)
+    );
   });
 
   test("Output for a complex negated test", () => {
@@ -53,18 +59,20 @@ Received:
     const schema = { a: Joi.number() };
     const assertion = () => expect(value).not.toMatchSchema(schema);
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).not.toMatchSchema(schema)
+    expect(message).toBe(
+      trim(`
+        expect(received).not.toMatchSchema(schema)
 
-Received:
-{ "a": 2 }
+        Received:
+        { "a": 2 }
 
-Schema:
-{
-  "type": "object",
-  "keys": { "a": { "type": "number" } }
-}
-`);
+        Schema:
+        {
+          "type": "object",
+          "keys": { "a": { "type": "number" } }
+        }
+      `)
+    );
   });
 
   test("Output for an invalid schema", () => {
@@ -72,12 +80,14 @@ Schema:
     const schema = true;
     const assertion = () => expect(value).toMatchSchema(schema);
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).toMatchSchema(schema)
+    expect(message).toBe(
+      trim(`
+        expect(received).toMatchSchema(schema)
 
-Received: 1
-Expected: Received must be [true]
-`);
+        Received: 1
+        Expected: Received must be [true]
+      `)
+    );
   });
 });
 
@@ -86,12 +96,14 @@ describe("toBeSchema()", () => {
     const schema = BigInt("1");
     const assertion = () => expect(schema).toBeSchema();
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).toBeSchema()
+    expect(message).toBe(
+      trim(`
+        expect(received).toBeSchema()
 
-Error: Invalid schema content: bigint
-Received: 1
-`);
+        Error: Invalid schema content: bigint
+        Received: 1
+        `)
+    );
   });
 });
 
@@ -99,36 +111,61 @@ test("Output for a negated valid schema", () => {
   const schema = Joi.string();
   const assertion = () => expect(schema).not.toBeSchema();
   const message = getMessage(assertion);
-  expect(message).toBe(`
-expect(received).not.toBeSchema()
+  expect(message).toBe(
+    trim(`
+      expect(received).not.toBeSchema()
 
-Schema:
-{ "type": "string" }
-`);
+      Schema:
+      { "type": "string" }
+    `)
+  );
 });
 
 describe("toBeSchemaLike()", () => {
-  test.only("Output for an invalid schema literal", () => {
+  test("Output for an invalid schema literal", () => {
     const schema = BigInt("1");
     const assertion = () => expect(schema).toBeSchemaLike();
     const message = getMessage(assertion);
-    expect(message).toBe(`
-expect(received).toBeSchemaLike() // Schema-like means accepted by Joi.compile()
+    expect(message).toBe(
+      trim(`
+        expect(received).toBeSchemaLike() // Schema-like means accepted by Joi.compile()
 
-Error: Invalid schema content: bigint
-Received: 1
-`);
+        Error: Invalid schema content: bigint
+        Received: 1
+      `)
+    );
   });
 
-  //   test.only("Output for a negated schema literal", () => {
-  //     const schema = true;
-  //     const assertion = () => expect(schema).toBeSchemaLike();
-  //     const message = getMessage(assertion);
-  //     expect(message).toBe(`
-  // expect(received).toBeSchemaLike() // Schema-like means accepted by Joi.compile()
+  test("Output for an invalid schema literal object", () => {
+    const schema = { big: BigInt("1") };
+    const assertion = () => expect(schema).toBeSchemaLike();
+    const message = getMessage(assertion);
+    expect(message).toBe(
+      trim(`
+        expect(received).toBeSchemaLike() // Schema-like means accepted by Joi.compile()
 
-  // Error: Invalid schema content: bigint
-  // Received: 1
-  // `);
-  //   });
+        Error: Invalid schema content: bigint (big)
+        Received:
+        (Unserializable)
+      `)
+    );
+  });
+
+  test("Output for a negated schema literal", () => {
+    const schema = true;
+    const assertion = () => expect(schema).not.toBeSchemaLike();
+    const message = getMessage(assertion);
+    expect(message).toBe(
+      trim(`
+        expect(received).not.toBeSchemaLike() // Schema-like means accepted by Joi.compile()
+
+        Schema:
+        {
+          "type": "any",
+          "flags": { "only": true },
+          "allow": [{ "override": true }, true]
+        }
+      `)
+    );
+  });
 });

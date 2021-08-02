@@ -23,5 +23,11 @@ module.exports = {
         "@typescript-eslint/no-var-requires": "off",
       },
     },
+    {
+      files: ["src/utils/stringify-object.ts"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
   ],
 };

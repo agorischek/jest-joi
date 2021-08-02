@@ -1,10 +1,8 @@
-import * as Joi from "joi";
-
 import { BeLikeMessage, Schema } from "../classes";
 
 export function toBeSchemaLike(
   this: jest.MatcherContext,
-  received: Joi.SchemaLike
+  received: unknown
 ): jest.CustomMatcherResult {
   const name = "toBeSchemaLike";
   const schema = new Schema(received);
