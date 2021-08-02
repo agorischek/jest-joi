@@ -1,6 +1,12 @@
 import { Hint, Schema } from "../classes";
-import { labels, validSchema } from "./shared";
+import { colors, labels, printObject } from "./shared";
 
 export function negatedSchemaMessage(hint: Hint, schema: Schema): string[] {
-  return [hint.text, "", labels.schema, validSchema(schema)];
+  const lines = [hint.text, ""];
+
+  const printedSchema = printObject(schema.description);
+  lines.push(labels.schema);
+  lines.push(colors.received(printedSchema));
+
+  return lines;
 }

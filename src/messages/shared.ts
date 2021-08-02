@@ -1,8 +1,9 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
 
-import { isSimple, stringifyObject } from "../utils";
-import { Schema } from "../classes";
+import { stringifyObject } from "../utils";
+
+export * from "../utils";
 
 export const labels = {
   error: "Error:",
@@ -13,6 +14,11 @@ export const labels = {
 
 export const receivedColor = chalk.red;
 export const expectedColor = chalk.green;
+
+export const colors = {
+  expected: expectedColor,
+  received: receivedColor,
+};
 
 export const print =
   (message: string): (() => string) =>
@@ -38,42 +44,9 @@ export const printObject = (object: unknown): string => {
   }
 };
 
-export const expectedSchema = (schema: Joi.Schema): string =>
-  expectedColor(printObject(schema.describe()));
-
-export const validReceived = (input: unknown): string =>
-  receivedColor(printObject(input));
-
-export const invalidReceived = (input: unknown): string => receivedColor(input);
-
-export const validSchema = (schema: Schema): string => {
-  return receivedColor(printObject(schema.description));
-};
-
-export const invalidSchema = (input: unknown): string => {
-  return isSimple(input)
-    ? receivedColor(input)
-    : receivedColor(printObject(input));
-};
-
-export const validSchemaExplanation = (input: string): string =>
-  expectedColor(input);
-
-export const invalidSchemaExplanation = (input: string): string => {
-  return receivedColor(input);
-};
-
 export const errorExplanation = (error: Joi.ValidationError): string => {
   const annotation = error.annotate();
   const parsed = annotation.match(/^".+?" (.+)$/);
   if (parsed && parsed[1]) return `Received ${parsed[1]}`;
   else return annotation;
-};
-
-export const simpleErrorExplanation = (error: Joi.ValidationError): string => {
-  return expectedColor(errorExplanation(error));
-};
-
-export const complexErrorExplanation = (error: Joi.ValidationError): string => {
-  return errorExplanation(error);
 };

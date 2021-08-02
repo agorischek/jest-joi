@@ -1,16 +1,21 @@
 import { Hint, Schema } from "../classes";
-import { invalidSchemaExplanation, invalidSchema, labels } from "./shared";
+import { colors, isMultiline, labels, printObject } from "./shared";
 
 export function notSchemaMessage(hint: Hint, schema: Schema): string[] {
-  return [
-    hint.text,
-    "",
-    schema.error
-      ? labels.error + " " + invalidSchemaExplanation(schema.error)
-      : null,
-    schema.input.isSimple
-      ? labels.received + " " + invalidSchema(schema.input.value)
-      : labels.received,
-    schema.input.isSimple ? null : invalidSchema(schema.input.value),
-  ];
+  const lines = [hint.text, ""];
+
+  if (schema.error) {
+    lines.push(labels.error + " " + colors.received(schema.error));
+  }
+
+  const printedSchema = printObject(schema.input.value);
+
+  if (isMultiline(printedSchema)) {
+    lines.push(labels.received);
+    lines.push(colors.received(printedSchema));
+  } else {
+    lines.push(labels.received + " " + colors.received(printedSchema));
+  }
+
+  return lines;
 }

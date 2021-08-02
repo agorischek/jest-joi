@@ -1,15 +1,17 @@
 import { Hint, Received, Result } from "../classes";
-import { invalidReceived, labels, simpleErrorExplanation } from "./shared";
+
+import { colors, errorExplanation, labels } from "./shared";
 
 export function simpleMismatchMessage(
   hint: Hint,
   received: Received,
   result: Result
 ): string[] {
-  return [
-    hint.text,
-    "",
-    labels.received + " " + invalidReceived(received.input),
-    labels.expected + " " + simpleErrorExplanation(result.error),
-  ];
+  const lines = [hint.text, ""];
+
+  const printedError = errorExplanation(result.error);
+  lines.push(labels.received + " " + colors.received(received.input));
+  lines.push(labels.expected + " " + colors.expected(printedError));
+
+  return lines;
 }

@@ -28,9 +28,7 @@ describe("toMatchSchema()", () => {
         expect(received).not.toMatchSchema(schema)
 
         Received: "a"
-
-        Schema:
-        { "type": "string" }
+        Schema: { "type": "string" }
       `)
     );
   });
@@ -63,9 +61,7 @@ describe("toMatchSchema()", () => {
       trim(`
         expect(received).not.toMatchSchema(schema)
 
-        Received:
-        { "a": 2 }
-
+        Received: { "a": 2 }
         Schema:
         {
           "type": "object",
@@ -101,7 +97,7 @@ describe("toBeSchema()", () => {
         expect(received).toBeSchema()
 
         Error: Invalid schema content: bigint
-        Received: 1
+        Received: (Unserializable)
         `)
     );
   });
@@ -131,7 +127,7 @@ describe("toBeSchemaLike()", () => {
         expect(received).toBeSchemaLike() // Schema-like means accepted by Joi.compile()
 
         Error: Invalid schema content: bigint
-        Received: 1
+        Received: (Unserializable)
       `)
     );
   });
@@ -145,8 +141,7 @@ describe("toBeSchemaLike()", () => {
         expect(received).toBeSchemaLike() // Schema-like means accepted by Joi.compile()
 
         Error: Invalid schema content: bigint (big)
-        Received:
-        (Unserializable)
+        Received: (Unserializable)
       `)
     );
   });
