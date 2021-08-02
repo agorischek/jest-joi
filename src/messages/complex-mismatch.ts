@@ -5,7 +5,6 @@ export function complexMisMatchMessage(hint: Hint, result: Result): string[] {
   const lines = [hint.text, ""];
 
   lines.push(labels.received);
-
   const printedError = errorExplanation(result.error);
   lines.push(printedError);
 
