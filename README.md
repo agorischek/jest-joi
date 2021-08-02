@@ -142,9 +142,7 @@ test("Value should not match schema", () => {
 //    Received: "a"
 //
 //    Schema:
-//    {
-//      type: "string"
-//    }
+//    { type: "string" }
 ```
 
 ```ts
