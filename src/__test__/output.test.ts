@@ -124,8 +124,7 @@ test("Output for a negated valid schema", () => {
     trim(`
       expect(received).not.toBeSchema()
 
-      Schema:
-      { "type": "string" }
+      Schema: { "type": "string" }
     `)
   );
 });
