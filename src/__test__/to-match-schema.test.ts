@@ -10,6 +10,15 @@ test("Should throw when submitted schema isn't valid", () => {
   }).toThrow();
 });
 
+test("Should throw when submitted schema is null", () => {
+  const schema = "Null schema";
+  const input: string = null;
+
+  expect(() => {
+    expect(input).toMatchSchema(schema);
+  }).toThrow();
+});
+
 test("Should pass when the received value matches the schema", () => {
   const schema = object.keys({
     a: string.required(),
