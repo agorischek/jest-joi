@@ -1,7 +1,6 @@
 import * as Joi from "joi";
 
 import { MatchMessage, Options, Schema, Received, Result } from "../classes";
-import {} from "../classes/received";
 
 export function toMatchSchema(
   this: jest.MatcherContext,
