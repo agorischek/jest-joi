@@ -1,0 +1,8 @@
+ignores:
+  - "@stryker-mutator/jest-runner"
+  - "@stryker-mutator/typescript-checker"
+  - "@types/jest"
+  - "@types/node"
+  - jest-joi
+  - prettier-package-json
+  - markdownlint
