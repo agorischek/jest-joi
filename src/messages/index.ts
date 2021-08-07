@@ -1,6 +1,15 @@
-export * from "./complex-mismatch";
-export * from "./invalid-schema";
-export * from "./negated-match";
-export * from "./negated-schema";
-export * from "./not-schema";
-export * from "./simple-mismatch";
+import { complexMismatchMessage as complexMismatch } from "./complex-mismatch";
+import { invalidSchemaMessage as invalidSchema } from "./invalid-schema";
+import { negatedMatchMessage as negatedMatch } from "./negated-match";
+import { negatedSchemaMessage as negatedSchema } from "./negated-schema";
+import { notSchemaMessage as notSchema } from "./not-schema";
+import { simpleMismatchMessage as simpleMismatch } from "./simple-mismatch";
+
+export const messages = {
+  complexMismatch,
+  invalidSchema,
+  negatedMatch,
+  negatedSchema,
+  notSchema,
+  simpleMismatch,
+};

@@ -1,7 +1,7 @@
 import { Hint, Result } from "../classes";
 import { errorExplanation, labels } from "./shared";
 
-export function complexMisMatchMessage(hint: Hint, result: Result): string[] {
+export function complexMismatchMessage(hint: Hint, result: Result): string[] {
   const lines = [hint.text, ""];
 
   lines.push(labels.received);
