@@ -1,6 +1,5 @@
 ignores:
-  - "@stryker-mutator/jest-runner"
-  - "@stryker-mutator/typescript-checker"
+  - "@stryker-mutator/*"
   - "@types/jest"
   - "@types/node"
   - jest-joi
