@@ -1,8 +1,8 @@
-import { matcherHint } from "jest-matcher-utils";
+import { matcherHint, MatcherHintOptions } from "jest-matcher-utils";
 
 export class Hint {
   text: string;
-  options: jest.MatcherHintOptions;
+  options: MatcherHintOptions;
   constructor(matcherName: string, context: jest.MatcherContext) {
     switch (matcherName) {
       case "toMatchSchema":
