@@ -1,4 +1,3 @@
 dep: prod,dev,bundle,optional
 reject:
   - strip-ansi
-  - chalk
