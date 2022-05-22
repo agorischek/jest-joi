@@ -36,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "badge-roll": "0.0.3",
+    "chokidar": "^3.5.3",
     "codecov": "^3.8.3",
     "concurrently": "^7.2.0",
     "depcheck": "^1.4.3",
