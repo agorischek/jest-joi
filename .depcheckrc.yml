@@ -5,3 +5,5 @@ ignores:
   - jest-joi
   - prettier-package-json
   - markdownlint
+  - concurrently
+  - chokidar

@@ -1,2 +1,2 @@
-const jestJoi = require("./src");
-expect.extend(jestJoi);
+const { matchers } = require("./src");
+expect.extend(matchers);
