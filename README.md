@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 <!-- markdownlint-disable-next-line MD033 MD041 -->
 <img src="img/logo.png" height="130px" />
 
