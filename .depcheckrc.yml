@@ -8,3 +8,4 @@ ignores:
   - concurrently
   - chokidar
   - markdownlint-cli2
+  - badge-roll
