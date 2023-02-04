@@ -1,7 +1,7 @@
 badges:
   - npm/v
   - runkit
-  - github/workflow/status
+  - github/actions/workflow/status
   - codecov/c
   - github/license
   - badge-roll
@@ -12,4 +12,4 @@ settings:
 
 about:
   branch: main
-  workflow: ci
+  workflow: .github/workflows/ci.yml
