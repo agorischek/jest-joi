@@ -9,3 +9,4 @@ ignores:
   - chokidar
   - markdownlint-cli2
   - badge-roll
+  - rimraf
