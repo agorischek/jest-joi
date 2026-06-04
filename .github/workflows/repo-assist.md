@@ -29,6 +29,8 @@ on:
     pull-requests: read
   steps:
     - id: check
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         MAX_OPEN_PRS=8
         if [[ "$GITHUB_EVENT_NAME" != "schedule" ]]; then exit 0; fi
@@ -81,7 +83,7 @@ safe-outputs:
     max: 4
   push-to-pull-request-branch:
     target: "*"
-    title-prefix: "[repo-assist] "
+    required-title-prefix: "[repo-assist] "
     max: 4
     protected-files: fallback-to-issue
   create-issue:
