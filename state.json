@@ -1,25 +1,26 @@
 {
-  "last_run": "2026-06-04T01:43:00Z",
-  "last_run_id": "26924716584",
-  "monthly_activity_issue": 19,
-  "comments_made": [],
-  "open_repo_assist_prs": [
-    {
-      "branch": "repo-assist/improve-utils-2026-06-03-9d012090bdacfdd0",
-      "title": "Simplify isMultiline and stack utility functions",
-      "pr_number": 18
-    },
-    {
-      "branch": "repo-assist/improve-options-hasown-2026-06-04",
-      "title": "Use Object.hasOwn() in Options class",
-      "pr_number": null
-    }
+  "last_run": "2026-06-05T13:27:52Z",
+  "last_run_id": "27017508279",
+  "prs_created": [
+    {"number": null, "title": "refactor: extract pushLabeled helper to remove repeated label/color pattern", "branch": "repo-assist/improve-push-labeled-helper", "run": "27017508279"},
+    {"number": 24, "title": "perf: make Schema.description lazy to avoid unnecessary Joi describe() calls", "branch": "repo-assist/perf-lazy-schema-describe-2026-06-05", "run": "26989675574"},
+    {"number": 23, "title": "test: remove duplicate tests in to-be-schema-like.test.ts", "branch": "repo-assist/test-fix-to-be-schema-like-2026-06-05", "run": "26989675574"},
+    {"number": 21, "title": "Refactor: extract finalize() into Message base class", "branch": "repo-assist/improve-message-base-class-2026-06-04", "run": "26954856372"},
+    {"number": 20, "title": "Use Object.hasOwn() in Options class", "branch": "repo-assist/improve-options-hasown-2026-06-04", "run": "26924716584"},
+    {"number": 18, "title": "Simplify isMultiline and stack utility functions", "branch": "repo-assist/improve-utils-2026-06-03-9d012090bdacfdd0", "run": "26860267048"}
   ],
+  "comments_made": [],
+  "monthly_activity_issue": 19,
+  "open_repo_assist_issues": [22],
   "improvements_submitted": [
     "is-multiline: use includes() instead of split().length > 1",
     "messages/shared.ts stack: use join() instead of reduce()",
-    "classes/options.ts: use Object.hasOwn() instead of Object.prototype.hasOwnProperty.call()"
+    "classes/options.ts: use Object.hasOwn() instead of Object.prototype.hasOwnProperty.call()",
+    "classes/messages.ts: extract finalize() into Message base class",
+    "classes/schema.ts: lazy Schema.description getter to avoid eager Joi.describe() calls",
+    "test: remove duplicate BigInt tests from to-be-schema-like.test.ts compiled-schema group",
+    "messages: extract pushLabeled helper to remove repeated label/color/isMultiline pattern in 4 message files"
   ],
   "backlog_cursor": null,
-  "notes": "Test coverage is 100%. No regular user issues open. Monthly Activity issue is #19 for June 2026."
+  "notes": "Test coverage 100%. No user issues. 6 open Repo Assist PRs (#18, #20, #21, #23, #24 + pushLabeled). Issue #22 needs manual CI PR by maintainer. Consider whether to pause further coding improvements until maintainer reviews existing PRs."
 }
