@@ -32,7 +32,7 @@ export const stack = (lines: Array<string>): string => {
 export const printObject = (object: unknown): string => {
   try {
     return stringifyObject(object, { objectMargins: true, maxNesting: 2 });
-  } catch (error) {
+  } catch {
     return "(Unserializable)";
   }
 };

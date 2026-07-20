@@ -2,7 +2,6 @@ badges:
   - npm/v
   - runkit
   - github/actions/workflow/status
-  - codecov/c
   - github/license
   - badge-roll
 
