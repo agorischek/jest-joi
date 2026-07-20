@@ -1,21 +1,70 @@
 name: Publish
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: publish-${{ github.ref }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          node-version: 14
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
-      - run: npm publish
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Use an OIDC-capable npm CLI
+        run: npm install --global npm@11.18.0
+
+      - name: Verify tag and package version
+        id: package
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          TAG: ${{ github.ref_name }}
+        run: |
+          VERSION=$(node --print "require('./package.json').version")
+          case "$VERSION" in
+            *-*)
+              echo "Prerelease versions are not published by this workflow: $VERSION"
+              exit 1
+              ;;
+          esac
+          test "$TAG" = "v$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - run: npm ci
+      - run: npm run validate
+
+      - name: Publish package
+        env:
+          VERSION: ${{ steps.package.outputs.version }}
+        run: |
+          if npm view "jest-joi@$VERSION" version >/dev/null 2>&1; then
+            echo "jest-joi@$VERSION is already published"
+          else
+            npm publish --access public
+          fi
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release view "$TAG" >/dev/null 2>&1 || \
+            gh release create "$TAG" --verify-tag --generate-notes --title "$TAG"

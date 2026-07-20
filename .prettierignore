@@ -2,3 +2,6 @@ dist
 out-ts
 coverage
 reports
+.github/agents
+.github/workflows/*.lock.yml
+.github/workflows/repo-assist.md

@@ -1,3 +1,5 @@
 globs:
   - "**/*.md"
   - "!node_modules"
+  - "!.github/agents/**"
+  - "!.github/workflows/**"

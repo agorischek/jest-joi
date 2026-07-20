@@ -46,7 +46,7 @@ function asyncUnsupported(expected?: unknown) {
   log(
     "This demo environment doesn't support async tests. Install jest-joi in your local environment instead!"
   );
-  expected;
+  void expected;
 }
 
 function assessResult(

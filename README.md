@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD013 -->
 <!-- markdownlint-disable-next-line MD033 MD041 -->
-<img src="img/logo.png" height="130px" />
+<img src="img/logo.png" height="130px" alt="Jest Joi logo" />
 
 # Jest Joi
 
@@ -13,7 +13,6 @@ error messages and [TypeScript](https://www.typescriptlang.org) support
 [![Version](https://img.shields.io/npm/v/jest-joi)](https://www.npmjs.com/package/jest-joi "Version")
 [![RunKit](https://img.shields.io/badge/try%20on-runkit-%23e83e8c)](https://npm.runkit.com/jest-joi "RunKit")
 [![Workflow](https://img.shields.io/github/actions/workflow/status/agorischek/jest-joi/.github/workflows/ci.yml)](https://github.com/agorischek/jest-joi/actions/workflows/.github/workflows/ci.yml "Workflow")
-[![Coverage](https://img.shields.io/codecov/c/github/agorischek/jest-joi)](https://codecov.io/gh/agorischek/jest-joi "Coverage")
 [![License](https://img.shields.io/github/license/agorischek/jest-joi)](https://github.com/agorischek/jest-joi/blob/main/LICENSE "License")
 [![Badges](https://img.shields.io/badge/badges-rolled-white)](https://github.com/agorischek/badge-roll "Badges")
 
