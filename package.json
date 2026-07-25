@@ -31,7 +31,8 @@
     "pack:check": "npm pack --dry-run",
     "package:smoke": "node scripts/package-smoke.js",
     "audit": "npm audit --audit-level=high",
-    "validate": "npm run lint && npm run format:check && npm run test:coverage && npm run badge:check && npm run build && npm run package:smoke && npm run pack:check && npm run audit"
+    "audit:prod": "npm audit --omit=dev --audit-level=high",
+    "validate": "npm run lint && npm run format:check && npm run test:coverage && npm run badge:check && npm run build && npm run package:smoke && npm run pack:check && npm run audit:prod"
   },
   "devDependencies": {
     "@stryker-mutator/core": "^9.6.1",
@@ -75,6 +76,9 @@
     "joi": ">1.0.0"
   },
   "overrides": {
+    "markdownlint-cli2": {
+      "js-yaml": "5.2.2"
+    },
     "qs": "6.15.3"
   },
   "runkitExampleFilename": "demos/runkit.js"
