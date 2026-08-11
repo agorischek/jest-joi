@@ -1,6 +1,6 @@
 import stripAnsi = require("strip-ansi");
 
-import { manualErrorInspection } from "./errors.test";
+import { manualErrorInspection } from "./config";
 
 export function wrapMatchSchema(
   input: unknown,
