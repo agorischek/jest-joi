@@ -79,7 +79,8 @@
     "markdownlint-cli2": {
       "js-yaml": "5.2.2"
     },
-    "qs": "6.15.3"
+    "qs": "6.15.3",
+    "smol-toml": "1.7.1"
   },
   "runkitExampleFilename": "demos/runkit.js"
 }
