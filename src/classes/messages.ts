@@ -6,6 +6,11 @@ class Message {
   fn: () => string;
   lines: string[];
   text: string;
+
+  protected finalize(): void {
+    this.text = stack(this.lines);
+    this.fn = print(this.text);
+  }
 }
 
 export class MatchMessage extends Message {
@@ -26,8 +31,7 @@ export class MatchMessage extends Message {
       this.lines = messages.simpleMismatch(hint, received, result);
     else this.lines = messages.complexMismatch(hint, result);
 
-    this.text = stack(this.lines);
-    this.fn = print(this.text);
+    this.finalize();
   }
 }
 
@@ -40,8 +44,7 @@ export class BeMessage extends Message {
       this.lines = messages.negatedSchema(hint, received);
     else this.lines = messages.notSchema(hint, received);
 
-    this.text = stack(this.lines);
-    this.fn = print(this.text);
+    this.finalize();
   }
 }
 
@@ -54,7 +57,6 @@ export class BeLikeMessage extends Message {
       this.lines = messages.negatedSchema(hint, received);
     else this.lines = messages.notSchema(hint, received);
 
-    this.text = stack(this.lines);
-    this.fn = print(this.text);
+    this.finalize();
   }
 }
