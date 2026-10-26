@@ -23,10 +23,7 @@ export const print =
     message;
 
 export const stack = (lines: Array<string>): string => {
-  const reducer = (accumulator: string, value: string) => {
-    return value === "" ? accumulator + "\n" : accumulator + "\n" + value;
-  };
-  return lines.reduce(reducer);
+  return lines.join("\n");
 };
 
 export const printObject = (object: unknown): string => {
