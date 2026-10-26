@@ -1,7 +1,7 @@
 import * as Joi from "joi";
 import * as chalk from "chalk";
 
-import { stringifyObject } from "../utils";
+import { isMultiline, stringifyObject } from "../utils";
 
 export * from "../utils";
 
@@ -42,4 +42,19 @@ export const errorExplanation = (error: Joi.ValidationError): string => {
   const parsed = annotation.match(/^".+?" (.+)$/);
   if (parsed && parsed[1]) return `Received ${parsed[1]}`;
   else return annotation;
+};
+
+export const pushLabeled = (
+  lines: string[],
+  label: string,
+  colorFn: (text: string) => string,
+  value: unknown
+): void => {
+  const printed = printObject(value);
+  if (isMultiline(printed)) {
+    lines.push(label);
+    lines.push(colorFn(printed));
+  } else {
+    lines.push(label + " " + colorFn(printed));
+  }
 };
