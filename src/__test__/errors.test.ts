@@ -1,11 +1,6 @@
 import * as Joi from "joi";
 import { wrapBeSchema, wrapBeSchemaLike, wrapMatchSchema } from "./utils";
 
-// When set to false, the tests in this file serve as end-to-end tests, ensuring `toMatchSchema` throws.
-// When set to true, the tests in this file fail and allow error messages to be inspected manually.
-// Be sure to set to `false` before merging to mainline.
-export const manualErrorInspection = false;
-
 describe("toMatchSchema()", () => {
   test("Error message when input doesn't match simple string schema", () => {
     const schema = Joi.string();
