@@ -38,7 +38,7 @@ export class Schema {
 
 export const buildErrorMessage = (error: unknown): string => {
   const errorString = error.toString();
-  const errorContentMatch = errorString.match(/^Error: (.+)$/);
+  const errorContentMatch = errorString.match(/^(?:[A-Za-z]+)?Error: (.+)$/);
   const errorContent = errorContentMatch ? errorContentMatch[1] : errorString;
   return errorContent;
 };
