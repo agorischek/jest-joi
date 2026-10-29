@@ -46,7 +46,7 @@
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.7.0",
     "jest": "^30.4.2",
-    "joi": "^17.13.4",
+    "joi": "^18.2.9",
     "markdownlint-cli2": "^0.23.1",
     "prettier": "^2.8.8",
     "rimraf": "^6.1.3",
