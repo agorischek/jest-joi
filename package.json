@@ -80,7 +80,7 @@
       "js-yaml": "5.2.2"
     },
     "qs": "6.15.3",
-    "smol-toml": "1.7.1"
+    "smol-toml": "1.9.0"
   },
   "runkitExampleFilename": "demos/runkit.js"
 }
