@@ -76,6 +76,9 @@
     "joi": ">1.0.0"
   },
   "overrides": {
+    "markdownlint": {
+      "re2js": "2.8.7"
+    },
     "markdownlint-cli2": {
       "js-yaml": "5.2.2"
     },
