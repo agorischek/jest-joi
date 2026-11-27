@@ -7,6 +7,13 @@ test("Should extract error content from schema validation error message with pre
   expect(errorMessage).toBe("Invalid schema content: bigint");
 });
 
+test("Should extract error content from Joi assertion error message", () => {
+  const errorMessage = buildErrorMessage(
+    "AssertError: Invalid schema content: bigint"
+  );
+  expect(errorMessage).toBe("Invalid schema content: bigint");
+});
+
 test("Should extract error content from schema validation error message without prefix", () => {
   const errorMessage = buildErrorMessage("Invalid schema content");
   expect(errorMessage).toBe("Invalid schema content");
